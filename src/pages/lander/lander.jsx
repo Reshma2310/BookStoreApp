@@ -35,9 +35,6 @@ const useStyles = makeStyles({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    emptyBox: {
-
-    },
     imgLogoLP: {
         width: '14rem',
         height: '14rem',
@@ -48,10 +45,10 @@ const useStyles = makeStyles({
         borderRadius: '50%',
     },
     imgBookLP: {
-        width: '25px',
-        height: '25px',
+        width: '30px',
+        
         position: 'relative',
-        bottom: '178px',
+        bottom: '184px',
         left: '56px',        
     },
     textLogoLP: {

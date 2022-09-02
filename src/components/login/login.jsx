@@ -6,9 +6,11 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Divider } from '@mui/material'
 
+const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])([a-zA-Z0-9]*).{8,}$/;
+
+
 const useStyles = makeStyles({
-
-
     loginSIP: {
         width: '26vw',
         height: '60vh',
@@ -101,6 +103,58 @@ const useStyles = makeStyles({
 })
 
 function LoginPage(props) {
+
+    const [loginObj, setLoginObj] = React.useState({ email: "", password: "" })
+    const [rejexObj, setRejexObj] = React.useState({ emailBorder: false, emailHelper: "", passwordBorder: false, passwordHelper: "" })
+
+    const takeUserName = (event) => {
+        setLoginObj(prevState => ({
+            ...prevState,
+            email: event.target.value
+        }))
+        console.log(event.target.value)
+    }
+    const takePassword = (event) => {
+        setLoginObj(prevState => ({
+            ...prevState,
+            password: event.target.value
+        }))
+        console.log(event.target.value)
+    }
+
+    const submit = () => {
+        let emailTest = emailRegex.test(loginObj.email)
+        let passwordTest = passwordRegex.test(loginObj.password)
+        if (emailTest === false) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                emailBorder: true,
+                emailHelper: "Enter an email or phone number"
+            }))
+        }
+        else if (emailTest === true) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                emailBorder: false,
+                emailHelper: ""
+            }))
+        }
+        if (passwordTest === false) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                passwordBorder: true,
+                passwordHelper: "Incorrect password"
+            }))
+        }
+        else if (passwordTest === true) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                passwordBorder: false,
+                passwordHelper: ""
+            }))
+        }
+    }
+
     const classes = useStyles()
 
     const openSignup = () => {
@@ -116,13 +170,15 @@ function LoginPage(props) {
                 </Box>
                 <Box className={classes.boxesSIP}>
                     <Box className={classes.titleTextSIP}><span>Email Id</span>
-                        <TextField className={classes.emailSIP} variant="outlined" size="small" />
+                        <TextField className={classes.emailSIP} variant="outlined" size="small"
+                            onChange={takeUserName} error={rejexObj.emailBorder} helperText={rejexObj.emailHelper} />
                     </Box>
                     <Box className={classes.titleTextSIP}><span>Password</span>
-                        <TextField className={classes.pwdSIP} variant="outlined" size="small" />
+                        <TextField className={classes.pwdSIP} variant="outlined" size="small" 
+                            onChange={takePassword} error={rejexObj.passwordBorder} helperText={rejexObj.passwordHelper}/>
                     </Box>
                     <Box >
-                        <Button className={classes.loginKeySIP} variant="contained" color="success">Login</Button>
+                        <Button className={classes.loginKeySIP} variant="contained" color="success" onClick={submit}>Login</Button>
                     </Box>
                     {/* <Box sx={{fontWeight: 'bold'}}>     ----- OR -----   </Box> */}
                     <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', fontWeight: 'bold'}}><Divider sx={{ borderBottomWidth: 3, width: '30%' }} />OR <Divider sx={{ borderBottomWidth: 3, width: '30%' }} /></Box>

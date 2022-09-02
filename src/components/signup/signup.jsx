@@ -6,6 +6,11 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { height } from '@mui/system';
 
+const nameRegex = /^[A-Z]{1}[a-z]{2,}$/;
+const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])([a-zA-Z0-9]*).{8,}$/;
+const mobileRegex = /^[1-9]{1}[0-9]{9}$/;
+
 const useStyles = makeStyles({
 
     loginSU: {
@@ -67,10 +72,108 @@ const useStyles = makeStyles({
     },
     textSU: {
         width: '100%',
+        textTransform: 'capitalize !important'
     }
 })
 
 function SignUp(props) {
+
+    const [signupObj, setSignupObj] = React.useState({ name: "", email: "", password: "", mobile: "" })
+    const [rejexObj, setRejexObj] = React.useState({ nameBorder: false, nameHelper: "", emailBorder: false, emailHelper: "", passwordBorder: false, passwordHelper: "", mobileBorder: false, mobileHelper: "" })
+
+    const takeUserName = (event) => {
+        setSignupObj(prevState => ({
+            ...prevState,
+            name: event.target.value
+        }))
+        console.log(event.target.value)
+    }
+    const takeEmail = (event) => {
+        setSignupObj(prevState => ({
+            ...prevState,
+            email: event.target.value
+        }))
+        console.log(event.target.value)
+    }
+    const takePassword = (event) => {
+        setSignupObj(prevState => ({
+            ...prevState,
+            password: event.target.value
+        }))
+        console.log(event.target.value)
+    }
+
+    const takeMobileNo = (event) => {
+        setSignupObj(prevState => ({
+            ...prevState,
+            mobile: event.target.value
+        }))
+        console.log(event.target.value)
+    }
+
+    const submit = () => {
+        let nameTest = nameRegex.test(signupObj.name)
+        let emailTest = emailRegex.test(signupObj.email)
+        let passwordTest = passwordRegex.test(signupObj.password)
+        let mobileTest = mobileRegex.test(signupObj.mobile)
+        if (nameTest === false) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                nameBorder: true,
+                nameHelper: "Enter valid name"
+            }))
+        }
+        else if (nameTest === true) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                nameBorder: false,
+                nameHelper: ""
+            }))
+        }
+        if (emailTest === false) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                emailBorder: true,
+                emailHelper: "Enter valid email"
+            }))
+        }
+        else if (emailTest === true) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                emailBorder: false,
+                emailHelper: ""
+            }))
+        }
+        if (passwordTest === false) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                passwordBorder: true,
+                passwordHelper: "Enter valid password"
+            }))
+        }
+        else if (passwordTest === true) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                passwordBorder: false,
+                passwordHelper: ""
+            }))
+        }
+        if (mobileTest === false) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                mobileBorder: true,
+                mobileHelper: "Enter valid mobile number"
+            }))
+        }
+        else if (mobileTest === true) {
+            setRejexObj(prevState => ({
+                ...prevState,
+                mobileBorder: false,
+                mobileHelper: ""
+            }))
+        }
+    }
+
     const classes = useStyles()
 
     const openLogin = () => {
@@ -86,19 +189,23 @@ function SignUp(props) {
                 </Box>
                 <Box className={classes.boxesSU}>
                     <Box className={classes.titleTextSU}><span>Full Name</span>
-                        <TextField className={classes.textSU} variant="outlined" size="small"/>
+                        <TextField className={classes.textSU} variant="outlined" size="small" onChange={takeUserName}
+                            error={rejexObj.nameBorder} helperText={rejexObj.nameHelper} />
                     </Box>
                     <Box className={classes.titleTextSU}><span>Email Id</span>
-                        <TextField className={classes.textSU} variant="outlined" size="small" />
+                        <TextField className={classes.textSU} variant="outlined" size="small" onChange={takeEmail}
+                            error={rejexObj.emailBorder} helperText={rejexObj.emailHelper} />
                     </Box>
                     <Box className={classes.titleTextSU}><span>Password</span>
-                        <TextField className={classes.textSU} variant="outlined" size="small" />
+                        <TextField className={classes.textSU} variant="outlined" size="small" onChange={takePassword}
+                            error={rejexObj.passwordBorder} helperText={rejexObj.passwordHelper} />
                     </Box>
                     <Box className={classes.titleTextSU}><span>Mobile Number</span>
-                        <TextField className={classes.textSU} variant="outlined" size="small" />
+                        <TextField className={classes.textSU} variant="outlined" size="small" onChange={takeMobileNo}
+                            error={rejexObj.mobileBorder} helperText={rejexObj.mobileHelper} />
                     </Box>
                     <Box className={classes.titleTextSU}>
-                        <Button className={classes.textSU} variant="contained" color="success">Signup</Button>
+                        <Button className={classes.textSU} variant="contained" color="success" onClick={submit}>Signup</Button>
                     </Box>
 
                 </Box>
