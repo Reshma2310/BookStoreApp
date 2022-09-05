@@ -5,11 +5,14 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { height } from '@mui/system';
+import { signup } from '../../services/userService';
 
-const nameRegex = /^[A-Z]{1}[a-z]{2,}$/;
+const fullNameRegex = /(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})$/
+
+const nameRegex = /^([A-Z]{1}[a-z]{2,})+([ ]{0,1}[A-Z]{1}[a-z]{2,})?([ ]{0,1})?([A-Z]{1}[a-z]{2,})?$/;
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])([a-zA-Z0-9]*).{8,}$/;
-const mobileRegex = /^[1-9]{1}[0-9]{9}$/;
+const mobileRegex = /^[6-9]{1}[0-9]{9}$/;
 
 const useStyles = makeStyles({
 
@@ -72,19 +75,24 @@ const useStyles = makeStyles({
     },
     textSU: {
         width: '100%',
-        textTransform: 'capitalize !important'
+        textTransform: 'capitalize !important',
+    },
+    textBtnSU: {
+        width: '100%',
+        textTransform: 'capitalize !important',
+        backgroundColor: '#A03037 !important',
     }
 })
 
 function SignUp(props) {
 
-    const [signupObj, setSignupObj] = React.useState({ name: "", email: "", password: "", mobile: "" })
+    const [signupObj, setSignupObj] = React.useState({ fullName: "", email: "", password: "", phone: "" })
     const [rejexObj, setRejexObj] = React.useState({ nameBorder: false, nameHelper: "", emailBorder: false, emailHelper: "", passwordBorder: false, passwordHelper: "", mobileBorder: false, mobileHelper: "" })
 
     const takeUserName = (event) => {
         setSignupObj(prevState => ({
             ...prevState,
-            name: event.target.value
+            fullName: event.target.value
         }))
         console.log(event.target.value)
     }
@@ -106,16 +114,16 @@ function SignUp(props) {
     const takeMobileNo = (event) => {
         setSignupObj(prevState => ({
             ...prevState,
-            mobile: event.target.value
+            phone: event.target.value
         }))
         console.log(event.target.value)
     }
 
     const submit = () => {
-        let nameTest = nameRegex.test(signupObj.name)
+        let nameTest = nameRegex.test(signupObj.fullName)
         let emailTest = emailRegex.test(signupObj.email)
         let passwordTest = passwordRegex.test(signupObj.password)
-        let mobileTest = mobileRegex.test(signupObj.mobile)
+        let mobileTest = mobileRegex.test(signupObj.phone)
         if (nameTest === false) {
             setRejexObj(prevState => ({
                 ...prevState,
@@ -172,7 +180,16 @@ function SignUp(props) {
                 mobileHelper: ""
             }))
         }
+
+        if (nameTest === true && emailTest === true && passwordTest === true && mobileTest === true) {
+            signup(signupObj).then((response) => {
+                console.log(response);
+            }).catch((error) => { console.log(error) })
+            console.log("Signup successful");
+        }
     }
+
+    
 
     const classes = useStyles()
 
@@ -205,7 +222,7 @@ function SignUp(props) {
                             error={rejexObj.mobileBorder} helperText={rejexObj.mobileHelper} />
                     </Box>
                     <Box className={classes.titleTextSU}>
-                        <Button className={classes.textSU} variant="contained" color="success" onClick={submit}>Signup</Button>
+                        <Button className={classes.textBtnSU} variant="contained" onClick={submit}>Signup</Button>
                     </Box>
 
                 </Box>

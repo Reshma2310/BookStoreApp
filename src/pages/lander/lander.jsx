@@ -45,8 +45,7 @@ const useStyles = makeStyles({
         borderRadius: '50%',
     },
     imgBookLP: {
-        width: '30px',
-        
+        width: '30px',        
         position: 'relative',
         bottom: '184px',
         left: '56px',        

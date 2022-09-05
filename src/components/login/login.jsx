@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Divider } from '@mui/material'
+import { login } from '../../services/userService';
 
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])([a-zA-Z0-9]*).{8,}$/;
@@ -76,7 +77,8 @@ const useStyles = makeStyles({
     },
     loginKeySIP: {
         width: '100%',
-        textTransform: 'capitalize !important'
+        textTransform: 'capitalize !important',
+        backgroundColor: '#A03037 !important',
     },
     fbgoogleSIP: {
         display: 'flex',
@@ -153,7 +155,14 @@ function LoginPage(props) {
                 passwordHelper: ""
             }))
         }
-    }
+        if (emailTest === true && passwordTest === true) {
+            login(loginObj).then((response) => {
+                console.log(response);
+                localStorage.setItem("token", response.data.result.accessToken)                
+            }).catch((error) => { console.log(error) })
+            console.log("login successful");
+        }
+    }    
 
     const classes = useStyles()
 
@@ -178,7 +187,7 @@ function LoginPage(props) {
                             onChange={takePassword} error={rejexObj.passwordBorder} helperText={rejexObj.passwordHelper}/>
                     </Box>
                     <Box >
-                        <Button className={classes.loginKeySIP} variant="contained" color="success" onClick={submit}>Login</Button>
+                        <Button className={classes.loginKeySIP} variant="contained" onClick={submit}>Login</Button>
                     </Box>
                     {/* <Box sx={{fontWeight: 'bold'}}>     ----- OR -----   </Box> */}
                     <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', fontWeight: 'bold'}}><Divider sx={{ borderBottomWidth: 3, width: '30%' }} />OR <Divider sx={{ borderBottomWidth: 3, width: '30%' }} /></Box>
