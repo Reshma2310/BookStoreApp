@@ -2,7 +2,6 @@ import { Box, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import StarIcon from '@mui/icons-material/Star';
-import { fontSize } from "@mui/system";
 
 const useStyle = makeStyles({
     mainB: {
@@ -11,7 +10,7 @@ const useStyle = makeStyles({
         border: '0px solid black',
         display: 'flex',
         flexDirection: 'column',
-        marginBottom: '23px',
+        marginBottom: '30px',
         marginRight: '30px',
     },
     bookImgB: {
@@ -39,7 +38,7 @@ const useStyle = makeStyles({
         height: '100%',
     },
     textB: {
-        width: '85%',
+        width: '86%',
         height: '80%',
         border: '0px solid blue',
         display: 'flex',
@@ -61,7 +60,7 @@ const useStyle = makeStyles({
         fontFamily: 'normal normal normal 10px/13px Roboto',
     },
     pointsB: {
-        width : '30%',
+        width: '30%',
         height: '22%',
         display: 'flex',
         flexDirection: 'row',
@@ -84,7 +83,7 @@ const useStyle = makeStyles({
         fontSize: '14px',
     },
     priceB: {
-        width: '50%',
+        width: '45%',
         height: '22%',
         display: 'flex',
         flexDirection: 'row',
@@ -101,25 +100,35 @@ const useStyle = makeStyles({
         fontSize: '12px',
     }
 })
-function Book() {
+
+function Book(props) {
     const classes = useStyle()
     return (
         <Paper elevation={2} className={classes.mainB}>
             <Box className={classes.bookImgB}>
-                <Box className={classes.ImageB}><img className={classes.ImgB} src="images/bookimg.png" /></Box>
+                <Box className={classes.ImageB}><img className={classes.ImgB} src="images/bookimg.png" alt="Book"/></Box>
             </Box>
             <Box className={classes.detailsB}>
                 <Box className={classes.textB}>
-                    <Box className={classes.titleB}>Don't Make Me Think</Box>
-                    <Box className={classes.authorB}>by Steve Krug</Box>
+                    <Box className={classes.titleB}>
+                        {/* Don't Make Me Think */}
+                        {props.book.bookName}
+                    </Box>
+                    <Box className={classes.authorB}>
+                        {/* by Steve Krug */}
+                        {props.book.author}
+                    </Box>
                     <Box className={classes.pointsB}>
                         <Box className={classes.ratingB}>
                             <Box sx={{ fontSize: '12px' }}>4.5</Box>
                             <StarIcon fontSize="10px" sx={{ color: 'white' }} />
-                        </Box><Box className={classes.markB}> (20)</Box>
+                        </Box><Box className={classes.markB}> 
+                        {/* (20) */}
+                        ({props.book.quantity})
+                        </Box>
                     </Box>
                     <Box className={classes.priceB}>
-                        <Box className={classes.discountB}>Rs. 1500</Box><Box className={classes.costB}>Rs. 20000</Box>
+                        <Box className={classes.discountB}>Rs. {props.book.discountPrice}</Box><Box className={classes.costB}>Rs. {props.book.price}</Box>
                     </Box>
                 </Box>
             </Box>

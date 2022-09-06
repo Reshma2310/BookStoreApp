@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from "../../components/header/header";
 import { Box } from "@mui/material";
 import Book from '../../components/book/book';
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { getBooksList } from '../../services/dataService';
+import { useEffect } from 'react';
 
 
 const useStyle = makeStyles({
@@ -43,11 +45,29 @@ const useStyle = makeStyles({
         marginRight: '30px',
     },
     dropDownDB: {
-        textTransform: 'capitalize !important',
+        textTransform: 'none !important',
     }
 })
 
 function DashBoard() {
+
+    const [bookList, setBookList] = useState([])
+
+    const getBooks = () => {
+        console.log('fetching books')
+        getBooksList().then((response) => {
+            console.log(response)
+            setBookList(response.data.result)
+        }).catch((error) => console.log(error))
+    }
+
+    const autoRefresh = () => {
+        getBooks()
+    }
+
+    useEffect(() => {
+        getBooks()
+    }, [])
 
     const classes = useStyle()
     return (
@@ -68,7 +88,9 @@ function DashBoard() {
                     </Box>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
-                    <Book />
+                    {
+                        bookList.map((book) => (<Book key={book._id} book = {book} autoRefresh = {autoRefresh}/>))
+                    }                
                 </Box>
             </Box>
         </Box>
