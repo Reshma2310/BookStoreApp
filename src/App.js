@@ -3,6 +3,9 @@ import './App.css';
 import LoginPage from './components/login/login';
 import SignUp from './components/signup/signup';
 import LanderPage from './pages/lander/lander';
+import Header from './components/header/header';
+import Book from './components/book/book';
+import DashBoard from './pages/dashboard/dashboard';
 
 function App() {
   return (
@@ -23,7 +26,10 @@ function App() {
       </header> */}
       {/* <LoginPage /> */}
       {/* <SignUp /> */}
-      <LanderPage />
+      {/* <LanderPage /> */}
+      {/* <Header /> */}
+      {/* <Book /> */}
+      <DashBoard />
     </div>
   );
 }
