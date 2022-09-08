@@ -6,6 +6,8 @@ import LanderPage from './pages/lander/lander';
 import Header from './components/header/header';
 import Book from './components/book/book';
 import DashBoard from './pages/dashboard/dashboard';
+import BookSummary from './components/booksummary/booksummary';
+import MyCart from './components/mycart/mycart';
 
 function App() {
   return (
@@ -29,7 +31,9 @@ function App() {
       {/* <LanderPage /> */}
       {/* <Header /> */}
       {/* <Book /> */}
-      <DashBoard />
+      {/* <DashBoard /> */}
+      {/* <BookSummary /> */}
+      <MyCart />
     </div>
   );
 }
