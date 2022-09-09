@@ -126,7 +126,8 @@ function DashBoard(props) {
                         </Box>
                     </Box>
                     {display ?
-                      <BookSummary bookName={inputFields.bookName} author={inputFields.author} quantity={inputFields.quantity} discountPrice={inputFields.discountPrice} price={inputFields.price} openBookPage = {openBookPage}/>                    
+                       <BookSummary bookName={inputFields.bookName} author={inputFields.author} quantity={inputFields.quantity} 
+                       discountPrice={inputFields.discountPrice} price={inputFields.price} index={bookList.indexOf(inputFields)}  openBookPage = {openBookPage}/>
                     :
                         bookList.map(
                             (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh} 

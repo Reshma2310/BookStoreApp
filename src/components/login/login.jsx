@@ -116,6 +116,7 @@ function LoginPage(props) {
         }))
         console.log(event.target.value)
     }
+    
     const takePassword = (event) => {
         setLoginObj(prevState => ({
             ...prevState,
@@ -198,7 +199,6 @@ function LoginPage(props) {
                 </Box>
             </Box>
         </Paper>
-
     )
 }
 

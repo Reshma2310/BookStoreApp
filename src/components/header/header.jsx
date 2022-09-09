@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,6 +12,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { useNavigate } from "react-router-dom";
+import MyCart from '../mycart/mycart';
+
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -54,6 +57,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
+    const navigate = useNavigate()
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -135,7 +140,12 @@ export default function Header() {
         </Menu>
     );
 
+    const openCart = () => {
+        navigate('/mycart')
+    }
+
     return (
+
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{ backgroundColor: '#A03037' }}>
                 <Toolbar>
@@ -172,7 +182,7 @@ export default function Header() {
                         <IconButton size="medium" color="inherit" sx={{ flexDirection: 'column', width: '100%', borderLeft: '1px solid #89292f', borderRadius: '0%' }}>
                             <div><PermIdentityOutlinedIcon /></div><Box sx={{ fontSize: '12px' }}>Profile</Box>
                         </IconButton>
-                        <IconButton
+                        <IconButton onClick={openCart}
                             size="medium"
                             aria-label="show 17 new notifications"
                             color="inherit" sx={{ flexDirection: 'column', width: '100%', borderLeft: '1px solid #89292f', borderRight: '1px solid #89292f', borderRadius: '0%' }}

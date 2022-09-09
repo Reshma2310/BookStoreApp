@@ -8,6 +8,7 @@ import Book from './components/book/book';
 import DashBoard from './pages/dashboard/dashboard';
 import BookSummary from './components/booksummary/booksummary';
 import MyCart from './components/mycart/mycart';
+import RouterOne from './components/router/router';
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
       {/* <Book /> */}
       {/* <DashBoard /> */}
       {/* <BookSummary /> */}
-      <MyCart />
+      {/* <MyCart /> */}
+      <RouterOne />
     </div>
   );
 }

@@ -21,6 +21,7 @@ const useStyle = makeStyles({
         bottom: '80px',
         justifyContent: 'flex-start',
         alignItems: 'center',
+        fontWeight: '500'
     },
     homeBS: {
         color: '#9D9D9D',
@@ -29,6 +30,7 @@ const useStyle = makeStyles({
     bookBS: {
         color: '#0A0102',
         fontSize: '12px',
+        
     },
     mainBS: {
         width: '77vw',
@@ -276,7 +278,7 @@ function BookSummary(props) {
 
         <Box>
             <Box className={classes.headerBS}>
-                <span className={classes.homeBS} onClick={openBook}>Home /</span>&nbsp;<span className={classes.bookBS}> Book(01)</span>
+                <span className={classes.homeBS} onClick={openBook}>Home /</span>&nbsp;<span className={classes.bookBS}> Book({props.index + 1})</span>
             </Box>
             <Box className={classes.mainBS}>
                 <Box className={classes.bookImgBS}>
