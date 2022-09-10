@@ -8,6 +8,10 @@ import StarIcon from '@mui/icons-material/Star';
 import { Divider } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import InputBase from '@mui/material/InputBase';
+import { addToCart, addToWishList, itemsCount } from '../../services/dataService';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 
 const useStyle = makeStyles({
@@ -30,7 +34,7 @@ const useStyle = makeStyles({
     bookBS: {
         color: '#0A0102',
         fontSize: '12px',
-        
+
     },
     mainBS: {
         width: '77vw',
@@ -255,23 +259,37 @@ const useStyle = makeStyles({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    // circleBS: {
+    //     width: '24px',
+    //     height: '24px',
+    //     background: '#FAFAFA',
+    //     border: '1px solid #DBDBDB',
+    //     borderRadius: '50%',
+    // }
 })
 
 function BookSummary(props) {
 
-    // const [inputFields, setInputFields] = useState({_id: '', bookName: '', author: '', quantity: '', price: ''})
-
-    // const handleOpen = (noteOdj) => {
-    //     console.log(noteOdj, "this is for modification")
-        
-    //     setInputFields({ _id: noteOdj.id, bookName: noteOdj.bookName, author: noteOdj.author, quantity: noteOdj.quantity, price: noteOdj.price })
-    // }
+    const [count, setCount] = useState(1)
 
     const classes = useStyle()
 
     const openBook = () => {
         props.openBookPage()
+    }
+
+    const addingToCart = () => {
+        console.log(props.id)
+        addToCart(props.id).then((response) => {
+            console.log(response, 'add from booksummary')
+        }).catch((error) => { console.log(error) })        
+    }
+
+    const addingToWishList = () => {
+        addToWishList(props.id).then((response) => {
+            console.log(response, 'wishlist from booksummary')
+        }).catch((error) => { console.log(error) })
     }
 
     return (
@@ -291,8 +309,10 @@ function BookSummary(props) {
                         <Box className={classes.bookCoverBS}><img src='images/bookimg.png' width='80%' /></Box>
                         <Box className={classes.bookBtnBS}>
                             <Box className={classes.buttonsBS}>
-                                <Button variant="contained" className={classes.addBtnBS}>Add to Bag</Button>
-                                <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon />}>Wishlist</Button>
+                                
+                                <Button variant="contained" className={classes.addBtnBS} onClick={addingToCart}>Add to Bag</Button>
+
+                                <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon />} onClick={addingToWishList}>Wishlist</Button>
                             </Box>
                         </Box>
                     </Box>
@@ -300,7 +320,7 @@ function BookSummary(props) {
                         <Box className={classes.detailsBS}>
                             <Box className={classes.bookTitleBS}>
                                 {props.bookName}
-                            {/* Don't Make Me Think */}
+                                {/* Don't Make Me Think */}
                             </Box>
                             <Box sx={{ height: '1%' }}></Box>
                             <Box className={classes.bookAuthorBS}>{props.author}</Box>
@@ -310,7 +330,7 @@ function BookSummary(props) {
                                     <Box sx={{ fontSize: '12px' }}>4.5</Box>
                                     <StarIcon fontSize="10px" sx={{ color: 'white' }} />
                                 </Box>
-                                <Box className={classes.markBS}>{props.quantity}</Box>
+                                <Box className={classes.markBS}>({props.quantity})</Box>
                             </Box>
                             <Box className={classes.priceBS}>
                                 <Box className={classes.discountBS}>Rs. {props.discountPrice}</Box><Box className={classes.costBS}>Rs. {props.price}</Box>

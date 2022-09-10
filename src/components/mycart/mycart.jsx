@@ -7,7 +7,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
-
+import { useState } from 'react';
+import CustomerDetails from '../customerdetails/customerdetails';
+import OrderSummary from '../order/order';
 
 const useStyle = makeStyles({
    headerMC: {
@@ -33,17 +35,16 @@ const useStyle = makeStyles({
    },
    mainMC: {
       width: '61vw',
-      height: '55vh',
+      height: 'auto',
       border: '0px solid black',
       position: 'relative',
       left: '153px',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
    },
    contentMC: {
       width: '100%',
-      height: '65%',
+      height: '35vh',
       border: '1px solid #DBDBDB',
       // opacity: '0.24',
       display: 'flex',
@@ -52,7 +53,7 @@ const useStyle = makeStyles({
    },
    addressOrderMC: {
       width: '100%',
-      height: '13%',
+      height: '7vh',
       border: '1px solid #DBDBDB',
       display: 'flex',
       justifyContent: 'center',
@@ -126,7 +127,7 @@ const useStyle = makeStyles({
       height: '24px',
       background: '#FAFAFA',
       border: '1px solid #DBDBDB',
-      borderRadius: '50%'
+      borderRadius: '50%',
    },
    textMC: {
       width: '92%',
@@ -140,31 +141,42 @@ const useStyle = makeStyles({
       border: '0px solid black',
       display: 'flex',
       alignItems: 'flex-end'
-  },
-  footerTextMC: {
+   },
+   footerTextMC: {
       width: '100%',
       height: '60%',
       backgroundColor: '#2E1D1E',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-  },
-  textCopyMC: {
+   },
+   textCopyMC: {
       width: '80%',
       color: 'white',
       textAlign: 'start',
       font: 'normal normal medium 12px/15px Lato',
       border: '0px solid pink',
       fontSize: '12px',
-  }
+   }
 })
 
 function MyCart() {
 
+   const [toggle, setToggle] = useState(false)
+   const [order, setOrder] = useState(false)
    const navigate = useNavigate()
 
    const openDashBoard = () => {
-      navigate('/')
+      navigate('/dashboard')
+   }
+
+   const openDetails = () => {
+      setToggle(true)
+      
+   }
+
+   const openBookDetails = () => {
+      setOrder(true)
    }
 
    const classes = useStyle()
@@ -215,16 +227,24 @@ function MyCart() {
                      </Box>
                   </Box>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-                     <Button sx={{ backgroundColor: '#3371B5', width: '20%' }} variant="contained">Place Order</Button>
+                     
+                  <Button sx={{ backgroundColor: '#3371B5', width: '23%' }} variant="contained" onClick={openDetails}>Place Order</Button>
+
                   </Box>
                </Box>
             </Card>
-            <Card className={classes.addressOrderMC} variant="outlined">
-               <span className={classes.textMC}>Address Details</span>
-            </Card>
-            <Card className={classes.addressOrderMC} variant="outlined">
-               <span className={classes.textMC}>Order summery</span>
-            </Card>
+            <Box sx={{ height: '2vh' }}></Box>
+            {toggle ? <CustomerDetails openBookDetails={openBookDetails} /> :
+               <Card className={classes.addressOrderMC} variant="outlined">
+                  <span className={classes.textMC}>Address Details</span>
+               </Card>}
+            <Box sx={{ height: '2vh' }}></Box>
+            {
+               order ? <OrderSummary /> :
+                  <Card className={classes.addressOrderMC} variant="outlined">
+                     <span className={classes.textMC}>Order summery</span>
+                  </Card>
+            }
          </Box>
          <Box sx={{ height: '12vh' }}></Box>
          <Box className={classes.footerMC}>

@@ -9,7 +9,6 @@ import { getBooksList } from '../../services/dataService';
 import { useEffect } from 'react';
 import BookSummary from '../../components/booksummary/booksummary';
 
-
 const useStyle = makeStyles({
     mainDB: {
         width: '80vw',
@@ -126,7 +125,7 @@ function DashBoard(props) {
                         </Box>
                     </Box>
                     {display ?
-                       <BookSummary bookName={inputFields.bookName} author={inputFields.author} quantity={inputFields.quantity} 
+                       <BookSummary id={inputFields._id} bookName={inputFields.bookName} author={inputFields.author} quantity={inputFields.quantity} 
                        discountPrice={inputFields.discountPrice} price={inputFields.price} index={bookList.indexOf(inputFields)}  openBookPage = {openBookPage}/>
                     :
                         bookList.map(
