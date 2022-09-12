@@ -23,8 +23,8 @@ export const addToWishList = (id) => {
      return response
 }
 
-export const itemsCount = (id, count) => {
-    let response = axios.put(`https://bookstore.incubation.bridgelabz.com/bookstore_user/cart_item_quantity/${id}`, id, count,
-    headerConfig)
-     return response
+export const itemsCount = (inputObj) => {
+    let response = axios.put(`https://bookstore.incubation.bridgelabz.com/bookstore_user/cart_item_quantity/${inputObj.id}`, inputObj,
+     headerConfig)
+      return response
 }

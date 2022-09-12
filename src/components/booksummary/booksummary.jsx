@@ -12,6 +12,7 @@ import { addToCart, addToWishList, itemsCount } from '../../services/dataService
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { useEffect } from 'react';
 
 
 const useStyle = makeStyles({
@@ -272,24 +273,44 @@ const useStyle = makeStyles({
 function BookSummary(props) {
 
     const [count, setCount] = useState(1)
+    const [cartBtn, setCartBtn] = useState(false)
+    const [wishBtn, setWishList] = useState(false)
+
+    const [input, setInput] = useState({ quantityToBuy: '' })
 
     const classes = useStyle()
 
     const openBook = () => {
         props.openBookPage()
+        setCartBtn(true)
+    }
+    const increment = () => {
+        setCount(count + 1);
+        
+    }
+
+    const decrement = () => {
+        if (count < 2) {
+            setCount(1)
+        } else {
+            setCount(count - 1)
+        }
+        
     }
 
     const addingToCart = () => {
+        setCartBtn(true)
         console.log(props.id)
         addToCart(props.id).then((response) => {
             console.log(response, 'add from booksummary')
-        }).catch((error) => { console.log(error) })        
+        }).catch((error) => { console.log(error) })
     }
 
     const addingToWishList = () => {
         addToWishList(props.id).then((response) => {
             console.log(response, 'wishlist from booksummary')
         }).catch((error) => { console.log(error) })
+        setWishList(true)
     }
 
     return (
@@ -309,10 +330,32 @@ function BookSummary(props) {
                         <Box className={classes.bookCoverBS}><img src='images/bookimg.png' width='80%' /></Box>
                         <Box className={classes.bookBtnBS}>
                             <Box className={classes.buttonsBS}>
-                                
-                                <Button variant="contained" className={classes.addBtnBS} onClick={addingToCart}>Add to Bag</Button>
+                                {
+                                    cartBtn ?
+                                        <Box sx={{ display: 'flex', alignItems: 'center', width: '45%', justifyContent: 'space-between', border: '0px solid orange' }}>
+                                            <Box >
+                                                <IconButton onClick={decrement} size='medium' sx={{ border: '1px solid #DBDBDB' }}>
+                                                    <RemoveIcon fontSize='small' sx={{ color: '#DBDBDB' }} /></IconButton>
+                                            </Box>
+                                            <Box sx={{ width: '40%', height: '95%', border: '1px solid #DBDBDB' }} >
+                                                <span style={{ fontSize: '22px' }} >{count}</span>
+                                            </Box>
+                                            <Box>
+                                                <IconButton onClick={increment} size='medium' sx={{ border: '1px solid #DBDBDB' }}>
+                                                    <AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
+                                            </Box>
+                                        </Box>
+                                        :
+                                        <Button variant="contained" className={classes.addBtnBS} onClick={addingToCart}>Add to Bag</Button>
 
-                                <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon />} onClick={addingToWishList}>Wishlist</Button>
+                                }
+                                {
+                                    wishBtn ?
+                                        <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon sx={{ color: 'red' }} />}>Wishlist</Button>
+                                        :
+                                        <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon />} onClick={addingToWishList}>Wishlist</Button>
+
+                                }
                             </Box>
                         </Box>
                     </Box>

@@ -102,9 +102,11 @@ const useStyle = makeStyles({
 
 function CustomerDetails(props) {
 
+   const [button, setButton] =useState(false)
 
    const openOrder = () => {
       props.openBookDetails()
+      setButton(true)
    }
 
    const classes = useStyle()
@@ -157,8 +159,11 @@ function CustomerDetails(props) {
                </Box>
             </Box>
             <Box className={classes.ctnBtnCD}>
-            <Button sx={{ width: '23%', height: '80%' }} variant='contained' onClick={openOrder}>Continue</Button>
-
+               {
+                  button ? null
+                  :
+                  <Button sx={{ width: '23%', height: '80%' }} variant='contained' onClick={openOrder}>Continue</Button>
+               }
             </Box>            
          </Box>
       </Card>

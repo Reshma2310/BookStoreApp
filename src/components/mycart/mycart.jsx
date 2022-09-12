@@ -161,7 +161,7 @@ const useStyle = makeStyles({
 })
 
 function MyCart() {
-
+   const [button, setButton] = useState(false)
    const [toggle, setToggle] = useState(false)
    const [order, setOrder] = useState(false)
    const navigate = useNavigate()
@@ -172,7 +172,7 @@ function MyCart() {
 
    const openDetails = () => {
       setToggle(true)
-      
+      setButton(true)
    }
 
    const openBookDetails = () => {
@@ -227,9 +227,12 @@ function MyCart() {
                      </Box>
                   </Box>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-                     
-                  <Button sx={{ backgroundColor: '#3371B5', width: '23%' }} variant="contained" onClick={openDetails}>Place Order</Button>
+                     {
+                        button ? null
+                           :
+                           <Button sx={{ backgroundColor: '#3371B5', width: '23%' }} variant="contained" onClick={openDetails}>Place Order</Button>
 
+                     }
                   </Box>
                </Box>
             </Card>
