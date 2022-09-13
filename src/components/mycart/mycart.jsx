@@ -10,6 +10,11 @@ import Card from '@mui/material/Card';
 import { useState } from 'react';
 import CustomerDetails from '../customerdetails/customerdetails';
 import OrderSummary from '../order/order';
+import { cartBookList, itemsCount, removeFromCart } from '../../services/dataService';
+import { useEffect } from 'react';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 const useStyle = makeStyles({
    headerMC: {
@@ -41,10 +46,11 @@ const useStyle = makeStyles({
       left: '153px',
       display: 'flex',
       flexDirection: 'column',
+      flexWrap: 'wrap',
    },
    contentMC: {
       width: '100%',
-      height: '35vh',
+      height: 'auto',
       border: '1px solid #DBDBDB',
       // opacity: '0.24',
       display: 'flex',
@@ -53,7 +59,7 @@ const useStyle = makeStyles({
    },
    addressOrderMC: {
       width: '100%',
-      height: '7vh',
+      height: '10vh',
       border: '1px solid #DBDBDB',
       display: 'flex',
       justifyContent: 'center',
@@ -61,25 +67,27 @@ const useStyle = makeStyles({
    },
    detailsMC: {
       width: '92%',
-      height: '87%',
+      height: 'auto',
+      margin: '20px 0px 20px 0px',
       border: '0px solid blue',
       display: 'flex',
       flexDirection: 'column',
    },
    cartBtnMC: {
       width: '100%',
-      height: '16%',
+      height: '6vh',
       border: '0px solid blue',
       display: 'flex',
       justifyContent: 'space-between',
    },
    contentTwoMC: {
       width: '38%',
-      height: '60%',
+      height: '19vh',
       border: '0px solid pink',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'flex-start',
+      marginBottom: '25px',
    },
    bookImgMC: {
       width: '20%',
@@ -122,12 +130,20 @@ const useStyle = makeStyles({
       alignContent: 'center',
       border: '0px solid blue'
    },
-   circleMC: {
-      width: '24px',
-      height: '24px',
-      background: '#FAFAFA',
+   // circleMC: {
+   //    width: '24px',
+   //    height: '24px',
+   //    background: '#FAFAFA',
+   //    border: '1px solid #DBDBDB',
+   //    borderRadius: '50%',
+   // },
+   addressOrderMC: {
+      width: '100%',
+      height: '7vh',
       border: '1px solid #DBDBDB',
-      borderRadius: '50%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
    },
    textMC: {
       width: '92%',
@@ -160,10 +176,12 @@ const useStyle = makeStyles({
    }
 })
 
-function MyCart() {
+function MyCart(props) {
+   const [cartList, setCartList] = useState([])
    const [button, setButton] = useState(false)
    const [toggle, setToggle] = useState(false)
    const [order, setOrder] = useState(false)
+   const [count, setCount] = useState(1)
    const navigate = useNavigate()
 
    const openDashBoard = () => {
@@ -179,6 +197,29 @@ function MyCart() {
       setOrder(true)
    }
 
+   const getList = () => {
+      console.log('cart list books')
+      cartBookList().then((response) => {
+         console.log(response)
+         setCartList(response.data.result)
+      }).catch((error) => console.log(error))
+   }
+
+   
+
+   const removeItem = (val) => {
+      console.log(val.target.id)
+      removeFromCart(val.target.id).then((response) => {
+         cartBookList();
+         console.log(response)
+      }).catch((error) => console.log(error))
+   }
+
+
+   useEffect(() => {
+      getList()
+   }, [])
+
    const classes = useStyle()
    return (
       <Box>
@@ -186,8 +227,8 @@ function MyCart() {
          <Box className={classes.headerMC}>
             <span className={classes.homeMC} onClick={openDashBoard}>Home /</span>&nbsp;<span className={classes.cartMC}> My cart</span>
          </Box>
-         <Box className={classes.mainMC}>
-            <Card className={classes.contentMC} variant="outlined">
+         <Box className={classes.mainMC} >
+            <Card className={classes.contentMC} variant="outlined" >
                <Box className={classes.detailsMC}>
                   <Box className={classes.cartBtnMC}>
                      <Box sx={{ fontSize: '18px', fontWeight: '500' }}>My cart (1)</Box>
@@ -197,45 +238,56 @@ function MyCart() {
                            justifyContent: 'space-around'
                         }}>Use current location</Button>
                   </Box>
-                  <Box sx={{ height: '5%' }}></Box>
-                  <Box className={classes.contentTwoMC}>
-                     <Box className={classes.bookImgMC}>
-                        <img width='100%' height='100%' src='images/bookimg.png' />
-                     </Box>
-                     <Box className={classes.dataMC}>
-                        <Box sx={{ height: '22%', fontSize: '17px', color: '#0A0102', fontWeight: '500' }}>Don't Make Me Think</Box>
-                        <Box sx={{ height: '17%', fontSize: '13px', color: '#9D9D9D', fontWeight: '500' }}>by Steve Krug</Box>
-                        <Box className={classes.priceMC}>
-                           <Box className={classes.discountMC}>Rs. 15000</Box><Box className={classes.costMC}>Rs. 20000</Box></Box>
-                        <Box sx={{ height: '15%' }}></Box>
-                        <Box className={classes.countMC}>
-                           <Box sx={{ display: 'flex', alignItems: 'center', width: '50%', justifyContent: 'space-between' }}>
-                              <Box className={classes.circleMC}>
-                                 <span style={{ fontSize: '20px', position: 'relative', bottom: '4px', color: '#DBDBDB' }}>-</span>
-                              </Box>
-                              <Box sx={{ width: '41px', height: '24px', border: '1px solid #DBDBDB' }}>
-                                 <span style={{ fontSize: '14px' }}>1</span>
-                              </Box>
-                              <Box className={classes.circleMC}>
-                                 <span style={{ fontSize: '18px', position: 'relative', bottom: '2px', color: '#333232' }}>+</span>
-                              </Box>
+                  <Box sx={{ height: '2vh' }}></Box>
+                  {
+                     cartList.map((list) => (
+                        <Box className={classes.contentTwoMC}>
+                           <Box className={classes.bookImgMC}>
+                              <img width='100%' height='100%' src='images/bookimg.png' />
                            </Box>
-                           <Box sx={{ width: '30%' }}>
-                              <span style={{ fontSize: '14px', color: '#0A0102', fontWeight: '500' }}>Remove</span>
+                           <Box className={classes.dataMC}>
+                              <Box sx={{ height: '22%', fontSize: '17px', color: '#0A0102', fontWeight: '500' }}>
+                                 {/* Don't Make Me Think */}
+                                 {list.product_id.bookName}
+                              </Box>
+                              <Box sx={{ height: '17%', fontSize: '13px', color: '#9D9D9D', fontWeight: '500' }}>{list.product_id.author}
+                                 {/* by Steve Krug */}
+                              </Box>
+                              <Box className={classes.priceMC}>
+                                 <Box className={classes.discountMC}>Rs. {list.product_id.discountPrice}</Box><Box className={classes.costMC}>Rs. {list.product_id.price}</Box></Box>
+                              <Box sx={{ height: '15%' }}></Box>
+                              <Box className={classes.countMC}>
+                                 <Box sx={{ display: 'flex', alignItems: 'center', width: '50%', justifyContent: 'space-between' }}>
+                                    <Box className={classes.circleMC}>
+                                       <IconButton size='small' sx={{ widht: '20px', border: '1px solid #DBDBDB' }}
+                                          ><RemoveIcon fontSize='small' sx={{ color: '#DBDBDB' }} /></IconButton>
+                                    </Box>
+                                    <Box sx={{ width: '41px', height: '24px', border: '1px solid #DBDBDB' }}>
+                                       <span style={{ fontSize: '14px' }}>{count}</span>
+                                    </Box>
+                                    <Box className={classes.circleMC}>
+                                       <IconButton size='small' sx={{ border: '1px solid #DBDBDB' }} ><AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
+                                    </Box>
+                                 </Box>
+                                 <Box sx={{ width: '30%' }}>
+                                    <span style={{ fontSize: '14px', color: '#0A0102', fontWeight: '500' }} id={list.product_id._id} onClick={removeItem}>Remove</span>
+                                 </Box>
+                              </Box>
                            </Box>
                         </Box>
-                     </Box>
-                  </Box>
+                     ))
+                  }
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
                      {
                         button ? null
                            :
                            <Button sx={{ backgroundColor: '#3371B5', width: '23%' }} variant="contained" onClick={openDetails}>Place Order</Button>
-
                      }
                   </Box>
                </Box>
             </Card>
+
+
             <Box sx={{ height: '2vh' }}></Box>
             {toggle ? <CustomerDetails openBookDetails={openBookDetails} /> :
                <Card className={classes.addressOrderMC} variant="outlined">

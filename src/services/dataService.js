@@ -28,3 +28,14 @@ export const itemsCount = (inputObj) => {
      headerConfig)
       return response
 }
+
+export const cartBookList = () => {
+    let response = axios.get('https://bookstore.incubation.bridgelabz.com/bookstore_user/get_cart_items', headerConfig)
+    return response
+}
+
+export const removeFromCart = (id) => {
+    let response = axios.delete(`https://bookstore.incubation.bridgelabz.com/bookstore_user/remove_cart_item/${id}`, id,
+    headerConfig)
+    return response
+}

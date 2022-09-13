@@ -8,7 +8,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { Divider } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import InputBase from '@mui/material/InputBase';
-import { addToCart, addToWishList, itemsCount } from '../../services/dataService';
+import { addToCart, addToWishList, cartBookList, itemsCount } from '../../services/dataService';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -274,9 +274,9 @@ function BookSummary(props) {
 
     const [count, setCount] = useState(1)
     const [cartBtn, setCartBtn] = useState(false)
-    const [wishBtn, setWishList] = useState(false)
+    const [wishBtn, setWishBtn] = useState(false)
 
-    const [input, setInput] = useState({ quantityToBuy: '' })
+    // const [input, setInput] = useState({ quantityToBuy: '' })
 
     const classes = useStyle()
 
@@ -286,7 +286,11 @@ function BookSummary(props) {
     }
     const increment = () => {
         setCount(count + 1);
-        
+        let inputObj = { id: props.id, quantityToBuy: count + 1 }
+        console.log(inputObj, 'value of quantity')
+        itemsCount(inputObj).then((response) => {
+            console.log(response, 'increment value')
+        }).catch((error) => console.log(error))
     }
 
     const decrement = () => {
@@ -295,22 +299,35 @@ function BookSummary(props) {
         } else {
             setCount(count - 1)
         }
-        
+        let inputObj = {id: props.id, quantityToBuy: count - 1 }
+        console.log(inputObj, 'value of quantity')
+        itemsCount(inputObj).then((response) => {
+            console.log(response, 'decrement value')
+        }).catch((error) => console.log(error))
     }
 
     const addingToCart = () => {
-        setCartBtn(true)
+        setCartBtn(prevState => ({
+            ...prevState,
+            cartBtn: true
+        }))
         console.log(props.id)
         addToCart(props.id).then((response) => {
             console.log(response, 'add from booksummary')
+            cartBookList();
         }).catch((error) => { console.log(error) })
     }
 
     const addingToWishList = () => {
         addToWishList(props.id).then((response) => {
             console.log(response, 'wishlist from booksummary')
+            
         }).catch((error) => { console.log(error) })
-        setWishList(true)
+        setWishBtn(prevState => ({
+            ...prevState,
+            wishBtn: true
+        }))
+        console.log('Added to Wishlist')
     }
 
     return (
@@ -347,14 +364,12 @@ function BookSummary(props) {
                                         </Box>
                                         :
                                         <Button variant="contained" className={classes.addBtnBS} onClick={addingToCart}>Add to Bag</Button>
-
                                 }
                                 {
                                     wishBtn ?
-                                        <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon sx={{ color: 'red' }} />}>Wishlist</Button>
+                                        <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon sx={{ color: 'red' }} />}>Added</Button>
                                         :
                                         <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon />} onClick={addingToWishList}>Wishlist</Button>
-
                                 }
                             </Box>
                         </Box>
@@ -385,7 +400,8 @@ function BookSummary(props) {
                                     <span style={{ color: '#878787', display: 'flex', alignItems: 'center' }}> <Box style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#878787' }}>
                                     </Box>&nbsp;Book Detail</span>
                                     <Box sx={{ marginLeft: '9px' }}>
-                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                                        {props.description}
+                                        {/* Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
                                         aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
                                         takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
                                         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
@@ -398,7 +414,7 @@ function BookSummary(props) {
                                         sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
                                         est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
                                         labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-                                        et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus estundefined
+                                        et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus estundefined */}
                                     </Box>
                                 </Box>
                             </Box>
