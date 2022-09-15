@@ -45,3 +45,9 @@ export const editUser = (inputObj) => {
      headerConfig)
       return response
 }
+
+
+export const wishBookList = () => {
+    let response = axios.get('https://bookstore.incubation.bridgelabz.com/bookstore_user/get_wishlist_items', headerConfig)
+    return response
+}

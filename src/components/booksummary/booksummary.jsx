@@ -8,7 +8,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { Divider } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import InputBase from '@mui/material/InputBase';
-import { addToCart, addToWishList, cartBookList, getBooksList, itemsCount } from '../../services/dataService';
+import { addToCart, addToWishList, cartBookList, getBooksList, itemsCount, wishBookList } from '../../services/dataService';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -276,12 +276,13 @@ function BookSummary(props) {
     const [cartBtn, setCartBtn] = useState(false)
     const [wishBtn, setWishBtn] = useState(false)
     const [cartBookId, setCartBookId] = useState([])
+    const [wishId, setWishId] = useState([])
 
     const classes = useStyle()
 
     const openBook = () => {
         props.openBookPage()
-        setCartBtn(true)
+        // setCartBtn(true)
     }
     const increment = () => {
         setCount(count + 1);
@@ -345,6 +346,20 @@ function BookSummary(props) {
              })  
              setCartBookId(idListArray)
         }).catch((error)=> console.log(error))
+    
+        wishBookList().then((response)=> {
+            console.log(response)
+            let idWishList = response.data.result.filter((wish) => {
+                if(props.id === wish.product_id._id){
+                    // setCount(cart.quantityToBuy)
+                    setCartId(wish._id)
+                    console.log(wish._id, 'adding Wishlist......')
+                   return wish
+                }           
+             })  
+             setWishId(idWishList)
+        }).catch((error)=> console.log(error))
+        
      }, [])
 
     return (
@@ -379,12 +394,9 @@ function BookSummary(props) {
                                                     <AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
                                             </Box>
                                         </Box>
-                                        
-                                        
-                                        
                                 }
                                 {
-                                    wishBtn ?
+                                    (wishId.length != 0) ?
                                         <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon sx={{ color: 'red' }} />}>Added</Button>
                                         :
                                         <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon />} onClick={addingToWishList}>Wishlist</Button>
