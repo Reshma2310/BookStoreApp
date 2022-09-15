@@ -5,7 +5,11 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { display, textAlign } from '@mui/system';
 import { useState } from 'react';
 import OrderSummary from '../order/order';
+import { editUser } from '../../services/dataService';
 
+const cityRegex = /^[A-Z]{1}[a-z]{2,}$/;
+const stateRegex = /^[A-Z]{1}[a-z]{2,}$/;
+const addressRegex = /^[#.0-9a-zA-Z/s,-]+$/;
 
 const useStyle = makeStyles({
    mainCD: {
@@ -102,12 +106,100 @@ const useStyle = makeStyles({
 
 function CustomerDetails(props) {
 
-   const [button, setButton] =useState(false)
+   const [button, setButton] = useState(false)
+   const [inputFields, setInputFields] = useState({ addressType: '', fullAddress: '', city: '', state: '' })
+   const [regexObj, setRegexObj] = useState({ cityBorder: false, cityHelper: '', stateBorder: false, stateHelper: '' , addBorder: false, addHelper: ''})
+
+   const takingCity = (event) => {
+      setInputFields(prevState => ({
+         ...prevState,
+         city: event.target.value
+      }))
+      console.log(event.target.value)
+   }
+
+   const takingState = (event) => {
+      setInputFields(prevState => ({
+         ...prevState,
+         state: event.target.value
+      }))
+      console.log(event.target.value)
+   }
+
+   const selectOption = (event) => {
+      setInputFields(prevState => ({
+         ...prevState,
+         addressType: event.target.value
+      }))
+      console.log(event.target.value)
+   }
+
+   const takingAddress = (event) => {
+      setInputFields(prevState => ({
+         ...prevState,
+         fullAddress: event.target.value
+      }))
+      console.log(event.target.value)
+   }
+
 
    const openOrder = () => {
+      
+
+      let cityTest = cityRegex.test(inputFields.city)
+      let stateTest = stateRegex.test(inputFields.state)
+      let addressTest = addressRegex.test(inputFields.fullAddress)
+      if (cityTest === false) {
+         setRegexObj(prevState => ({
+            ...prevState,
+            cityBorder: true,
+            cityHelper: "Enter city name"
+         }))
+      }
+      else if (cityTest === true) {
+         setRegexObj(prevState => ({
+            ...prevState,
+            cityBorder: false,
+            cityHelper: ""
+         }))
+      }
+      if (stateTest === false) {
+         setRegexObj(prevState => ({
+            ...prevState,
+            stateBorder: true,
+            stateHelper: "Enter state name"
+         }))
+      }
+      else if (stateTest === true) {
+         setRegexObj(prevState => ({
+            ...prevState,
+            stateBorder: false,
+            stateHelper: ""
+         }))
+      }
+      if (addressTest === false) {
+         setRegexObj(prevState => ({
+            ...prevState,
+            addBorder: true,
+            addHelper: "Enter address"
+         }))
+      }
+      else if (addressTest === true) {
+         setRegexObj(prevState => ({
+            ...prevState,
+            addBorder: false,
+            addHelper: ""
+         }))
+      }
+      if(cityTest === true && stateTest === true && addressTest === true) {
+         editUser(inputFields).then((response) => {
+            console.log(response)
+         }).catch((error) => { console.log(error) })
+      }
       props.openBookDetails()
       setButton(true)
    }
+
 
    const classes = useStyle()
    return (
@@ -128,32 +220,33 @@ function CustomerDetails(props) {
                      </Box>
                      <Box className={classes.textHeadCD}>
                         <span>Mobile Number</span>
-                        <TextField variant="outlined" size='small' sx />
+                        <TextField variant="outlined" size='small' />
                      </Box>
                   </Box>
                   <Box className={classes.addressCD}>
                      <Box className={classes.addCD}>
                         <span>Address</span>
-                        <OutlinedInput variant="outlined" size='small' sx={{ width: '100%', height: '80%' }} />
+                        <OutlinedInput variant="outlined" size='small' sx={{ width: '100%', height: '80%' }} onChange={takingAddress} error={regexObj.addBorder} helperText={regexObj.addHelper}
+                           />
                      </Box>
                   </Box>
 
                   <Box className={classes.inputCD}>
                      <Box className={classes.textHeadCD}>
                         <span>city/town</span>
-                        <TextField variant="outlined" size='small' />
+                        <TextField variant="outlined" size='small' onChange={takingCity} error={regexObj.cityBorder} helperText={regexObj.cityHelper} />
                      </Box>
                      <Box className={classes.textHeadCD}>
                         <span>State</span>
-                        <TextField variant="outlined" size='small' sx />
+                        <TextField variant="outlined" size='small' onChange={takingState} error={regexObj.stateBorder} helperText={regexObj.stateHelper} />
                      </Box>
                   </Box>
                   <Box className={classes.radioCD}>
                      <Box> Type</Box>
-                     <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <Box sx={{display: 'flex'}}><input style={{width: '20%'}} type="radio" value="Male" name="gender" /> &nbsp;&nbsp;Home</Box>
-                        <Box sx={{display: 'flex'}}><input style={{width: '20%'}} type="radio" value="Female" name="gender" /> &nbsp;&nbsp;Work</Box>
-                        <Box sx={{display: 'flex'}}><input style={{width: '20%'}} type="radio" value="Other" name="gender" /> &nbsp;&nbsp;Other</Box>
+                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onChange={selectOption}>
+                        <Box sx={{ display: 'flex' }}><input style={{ width: '20%' }} type="radio" value="Home" name="gender" /> &nbsp;&nbsp;Home</Box>
+                        <Box sx={{ display: 'flex' }}><input style={{ width: '20%' }} type="radio" value="Work" name="gender" /> &nbsp;&nbsp;Work</Box>
+                        <Box sx={{ display: 'flex' }}><input style={{ width: '20%' }} type="radio" value="Other" name="gender" /> &nbsp;&nbsp;Other</Box>
                      </Box>
                   </Box>
                </Box>
@@ -161,10 +254,10 @@ function CustomerDetails(props) {
             <Box className={classes.ctnBtnCD}>
                {
                   button ? null
-                  :
-                  <Button sx={{ width: '23%', height: '80%' }} variant='contained' onClick={openOrder}>Continue</Button>
+                     :
+                     <Button sx={{ width: '23%', height: '80%' }} variant='contained' onClick={openOrder}>Continue</Button>
                }
-            </Box>            
+            </Box>
          </Box>
       </Card>
    )

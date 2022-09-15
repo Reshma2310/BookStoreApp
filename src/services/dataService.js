@@ -11,20 +11,20 @@ export const getBooksList = () => {
 }
 
 export const addToCart = (id) => {
-    let response = axios.post(`https://bookstore.incubation.bridgelabz.com/bookstore_user/add_cart_item/${id}`, id,
+    let response = axios.post(`https://bookstore.incubation.bridgelabz.com/bookstore_user/add_cart_item/${id.product_id}`, id,
     headerConfig)
     //  console.log(response, 'added to cart')
      return response
 }
 
 export const addToWishList = (id) => {
-    let response = axios.post(`https://bookstore.incubation.bridgelabz.com/bookstore_user/add_wish_list/${id}`, id,
+    let response = axios.post(`https://bookstore.incubation.bridgelabz.com/bookstore_user/add_wish_list/${id}`, null,
     headerConfig)
      return response
 }
 
 export const itemsCount = (inputObj) => {
-    let response = axios.put(`https://bookstore.incubation.bridgelabz.com/bookstore_user/cart_item_quantity/${inputObj.id}`, inputObj,
+    let response = axios.put(`https://bookstore.incubation.bridgelabz.com/bookstore_user/cart_item_quantity/${inputObj.cartItem_id}`, inputObj,
      headerConfig)
       return response
 }
@@ -34,8 +34,14 @@ export const cartBookList = () => {
     return response
 }
 
-export const removeFromCart = (id) => {
-    let response = axios.delete(`https://bookstore.incubation.bridgelabz.com/bookstore_user/remove_cart_item/${id}`, id,
+export const removeFromCart = (obj) => {
+    let response = axios.delete(`https://bookstore.incubation.bridgelabz.com/bookstore_user/remove_cart_item/${obj.cartItem_id}`,
     headerConfig)
     return response
+}
+
+export const editUser = (inputObj) => {
+    let response = axios.put('https://bookstore.incubation.bridgelabz.com/bookstore_user/edit_user', inputObj,
+     headerConfig)
+      return response
 }

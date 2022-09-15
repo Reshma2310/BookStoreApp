@@ -8,7 +8,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { Divider } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import InputBase from '@mui/material/InputBase';
-import { addToCart, addToWishList, cartBookList, itemsCount } from '../../services/dataService';
+import { addToCart, addToWishList, cartBookList, getBooksList, itemsCount } from '../../services/dataService';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -271,12 +271,11 @@ const useStyle = makeStyles({
 })
 
 function BookSummary(props) {
-
+    const [cartId, setCartId] = useState([])
     const [count, setCount] = useState(1)
     const [cartBtn, setCartBtn] = useState(false)
     const [wishBtn, setWishBtn] = useState(false)
-
-    // const [input, setInput] = useState({ quantityToBuy: '' })
+    const [cartBookId, setCartBookId] = useState([])
 
     const classes = useStyle()
 
@@ -286,9 +285,9 @@ function BookSummary(props) {
     }
     const increment = () => {
         setCount(count + 1);
-        let inputObj = { id: props.id, quantityToBuy: count + 1 }
+        let inputObj = { cartItem_id: props.id, quantityToBuy: count + 1 }
         console.log(inputObj, 'value of quantity')
-        itemsCount(inputObj).then((response) => {
+        itemsCount(inputObj).then((response) => {     
             console.log(response, 'increment value')
         }).catch((error) => console.log(error))
     }
@@ -299,7 +298,7 @@ function BookSummary(props) {
         } else {
             setCount(count - 1)
         }
-        let inputObj = {id: props.id, quantityToBuy: count - 1 }
+        let inputObj = {cartItem_id: props.id, quantityToBuy: count - 1 }
         console.log(inputObj, 'value of quantity')
         itemsCount(inputObj).then((response) => {
             console.log(response, 'decrement value')
@@ -307,28 +306,46 @@ function BookSummary(props) {
     }
 
     const addingToCart = () => {
-        setCartBtn(prevState => ({
-            ...prevState,
-            cartBtn: true
-        }))
+        
+        setCartBtn(true)
         console.log(props.id)
-        addToCart(props.id).then((response) => {
-            console.log(response, 'add from booksummary')
-            cartBookList();
+        let cartObj={product_id: props.id}
+        addToCart(cartObj).then((response) => {
+            console.log(response, 'add from booksummary')            
+            // cartBookList();
         }).catch((error) => { console.log(error) })
+
     }
 
     const addingToWishList = () => {
-        addToWishList(props.id).then((response) => {
-            console.log(response, 'wishlist from booksummary')
-            
+        let wishObj={product_id: props.id}
+        addToWishList(wishObj).then((response) => {
+            console.log(response, 'wishlist from booksummary')                    
         }).catch((error) => { console.log(error) })
-        setWishBtn(prevState => ({
-            ...prevState,
-            wishBtn: true
-        }))
+        // setCartId({product_id: props.id})
+        setWishBtn(true)      
+         
         console.log('Added to Wishlist')
     }
+
+    const autoRefresh = () => {
+        addingToCart()
+    }
+
+    useEffect(() => {
+        cartBookList().then((response)=> {
+            console.log(response)
+            let idListArray = response.data.result.filter((cart) => {
+                if(props.id === cart.product_id._id){
+                    setCount(cart.quantityToBuy)
+                    setCartId(cart._id)
+                    console.log(cart._id,cart.quantityToBuy, 'adding cart.. quantity.....')
+                   return cart
+                }           
+             })  
+             setCartBookId(idListArray)
+        }).catch((error)=> console.log(error))
+     }, [])
 
     return (
 
@@ -348,7 +365,7 @@ function BookSummary(props) {
                         <Box className={classes.bookBtnBS}>
                             <Box className={classes.buttonsBS}>
                                 {
-                                    cartBtn ?
+                                    (cartId.length === 0) ? <Button variant="contained" className={classes.addBtnBS} onClick={autoRefresh}>Add to Bag</Button> :
                                         <Box sx={{ display: 'flex', alignItems: 'center', width: '45%', justifyContent: 'space-between', border: '0px solid orange' }}>
                                             <Box >
                                                 <IconButton onClick={decrement} size='medium' sx={{ border: '1px solid #DBDBDB' }}>
@@ -362,8 +379,9 @@ function BookSummary(props) {
                                                     <AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
                                             </Box>
                                         </Box>
-                                        :
-                                        <Button variant="contained" className={classes.addBtnBS} onClick={addingToCart}>Add to Bag</Button>
+                                        
+                                        
+                                        
                                 }
                                 {
                                     wishBtn ?

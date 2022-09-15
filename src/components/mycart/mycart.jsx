@@ -182,6 +182,7 @@ function MyCart(props) {
    const [toggle, setToggle] = useState(false)
    const [order, setOrder] = useState(false)
    const [count, setCount] = useState(1)
+   const [quantity, setQuantity] = useState([])
    const navigate = useNavigate()
 
    const openDashBoard = () => {
@@ -197,24 +198,49 @@ function MyCart(props) {
       setOrder(true)
    }
 
-   const getList = () => {
+   const getList = (obj) => {
       console.log('cart list books')
+      
       cartBookList().then((response) => {
          console.log(response)
          setCartList(response.data.result)
+         setQuantity(response.data.result)
+         
+//         setCartList(idListArray)
       }).catch((error) => console.log(error))
    }
 
-   
+   const decrementValue = (id) => {
+      if (count < 2) {
+         setCount(1)
+     } else {
+         setCount(prevcount => prevcount - 1)
+     }
+     let inputObj = { cartItem_id:id, quantityToBuy: count - 1 }
+     console.log(inputObj, 'value of quantity')
+     itemsCount(inputObj ).then((response) => {
+         console.log(response, 'decrement value')
+     }).catch((error) => console.log(error))
+     console.log(quantity, 'quantity value of product dec....')
+   }
 
-   const removeItem = (val) => {
-      console.log(val.target.id)
-      removeFromCart(val.target.id).then((response) => {
-         cartBookList();
+   const incrementValue = (id) => {
+      console.log(id, 'from mycart inc...' )
+      setCount(prevcount => prevcount + 1)
+      let inputObj = { cartItem_id:id, quantityToBuy: count + 1 }
+      console.log(inputObj, 'value of quantity')
+      itemsCount(inputObj).then((response) => {
+         console.log(response, 'increment value')
+      }).catch((error) => console.log(error))
+   }
+
+   const removeItem = (id) => {
+      console.log(id)
+        let obj = {cartItem_id: id}
+      removeFromCart(obj).then((response) => {
          console.log(response)
       }).catch((error) => console.log(error))
    }
-
 
    useEffect(() => {
       getList()
@@ -241,7 +267,7 @@ function MyCart(props) {
                   <Box sx={{ height: '2vh' }}></Box>
                   {
                      cartList.map((list) => (
-                        <Box className={classes.contentTwoMC}>
+                        <Box className={classes.contentTwoMC} id={list.product_id._id}>
                            <Box className={classes.bookImgMC}>
                               <img width='100%' height='100%' src='images/bookimg.png' />
                            </Box>
@@ -260,17 +286,18 @@ function MyCart(props) {
                                  <Box sx={{ display: 'flex', alignItems: 'center', width: '50%', justifyContent: 'space-between' }}>
                                     <Box className={classes.circleMC}>
                                        <IconButton size='small' sx={{ widht: '20px', border: '1px solid #DBDBDB' }}
-                                          ><RemoveIcon fontSize='small' sx={{ color: '#DBDBDB' }} /></IconButton>
+                                          onClick={()=>decrementValue(list.product_id._id)} ><RemoveIcon fontSize='small' sx={{ color: '#DBDBDB' }} /></IconButton>
                                     </Box>
                                     <Box sx={{ width: '41px', height: '24px', border: '1px solid #DBDBDB' }}>
-                                       <span style={{ fontSize: '14px' }}>{count}</span>
+                                       <span style={{ fontSize: '14px' }} >{list.quantityToBuy}</span>
                                     </Box>
                                     <Box className={classes.circleMC}>
-                                       <IconButton size='small' sx={{ border: '1px solid #DBDBDB' }} ><AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
+                                       <IconButton size='small' sx={{ border: '1px solid #DBDBDB' }}
+                                          onClick={()=>incrementValue(list.product_id._id)}><AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
                                     </Box>
                                  </Box>
                                  <Box sx={{ width: '30%' }}>
-                                    <span style={{ fontSize: '14px', color: '#0A0102', fontWeight: '500' }} id={list.product_id._id} onClick={removeItem}>Remove</span>
+                                    <span style={{ fontSize: '14px', color: '#0A0102', fontWeight: '500' }} onClick={()=>removeItem(list._id)}>Remove</span>
                                  </Box>
                               </Box>
                            </Box>
