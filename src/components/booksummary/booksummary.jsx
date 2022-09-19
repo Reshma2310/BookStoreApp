@@ -276,6 +276,7 @@ function BookSummary(props) {
     const [wishBtn, setWishBtn] = useState(false)
     const [cartBookId, setCartBookId] = useState([])
     const [wishId, setWishId] = useState([])
+    const [refresh, setRefresh] = useReducer(x => x + 1, 0)
 
     const classes = useStyle()
     // const [refresh, forceUpdate] = useReducer(x => x + 1, 0);
@@ -312,14 +313,15 @@ function BookSummary(props) {
         let cartObj={product_id: props.id}
         addToCart(cartObj).then((response) => {
             console.log(response, 'add from booksummary')            
-            // cartBookList();
+            setRefresh()
         }).catch((error) => { console.log(error) })
     }
 
     const addingToWishList = () => {
         let wishObj={product_id: props.id}
         addToWishList(wishObj).then((response) => {
-            console.log(response, 'wishlist from booksummary')                    
+            console.log(response, 'wishlist from booksummary')
+            setRefresh()                 
         }).catch((error) => { console.log(error) })
         setWishBtn(true)        
         console.log('Added to Wishlist')
@@ -351,7 +353,7 @@ function BookSummary(props) {
              })  
              setWishId(idWishList)
         }).catch((error)=> console.log(error)) 
-     }, [])
+     }, [refresh])
 
     return (
         <Box>

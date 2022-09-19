@@ -9,6 +9,7 @@ import DashBoard from './pages/dashboard/dashboard';
 import BookSummary from './components/booksummary/booksummary';
 import MyCart from './components/mycart/mycart';
 import RouterOne from './components/router/router';
+import MyWishList from './components/mywishlist/mywishlist';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
       {/* <BookSummary /> */}
       {/* <MyCart /> */}
       <RouterOne />
+      {/* <MyWishList /> */}
     </div>
   );
 }

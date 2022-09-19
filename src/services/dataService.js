@@ -56,3 +56,14 @@ export const addOrder = (inputObj) => {
     headerConfig)
      return response
 }
+
+export const getWishList = () => {
+    let response = axios.get('https://bookstore.incubation.bridgelabz.com/bookstore_user/get_wishlist_items', headerConfig)
+    return response
+}
+
+export const removeFromWishList = (obj) => {
+    let response = axios.delete(`https://bookstore.incubation.bridgelabz.com/bookstore_user/remove_wishlist_item/${obj.cartItem_id}`,
+    headerConfig)
+    return response
+}
