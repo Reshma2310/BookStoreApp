@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Header from '../header/header';
@@ -10,7 +10,7 @@ import Card from '@mui/material/Card';
 import { useState } from 'react';
 import CustomerDetails from '../customerdetails/customerdetails';
 import OrderSummary from '../order/order';
-import { cartBookList, itemsCount, removeFromCart } from '../../services/dataService';
+import { getCartItems, cartItemQuantity, removeFromCart, addOrder, } from '../../services/dataService';
 import { useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
@@ -173,6 +173,78 @@ const useStyle = makeStyles({
       font: 'normal normal medium 12px/15px Lato',
       border: '0px solid pink',
       fontSize: '12px',
+   },
+
+   mainOD: {
+      width: '61vw',
+      height: 'auto',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
+   contentOD: {
+      width: '92%',
+      height: 'auto',
+      margin: '20px 0px 20px 0px',
+      border: '0px solid pink',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      fontWeight: '500',
+   },
+   headOD: {
+      width: '100%',
+      height: '7vh',
+      border: '0px solid orange',
+      textAlign: 'left',
+      fontSize: '18px',
+   },
+   bookOD: {
+      width: '38%',
+      height: '14vh',
+      marginBottom: '20px',
+      border: '0px solid orange',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+   },
+   bookImgOD: {
+      width: '20%',
+      height: '90%',
+      marginTop: '5px',
+      border: '0px solid orange',
+   },
+   dataOD: {
+      width: '69%',
+      height: '100%',
+      border: '0px solid orange',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+   },
+   priceOD: {
+      width: '53%',
+      height: '25%',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+   },
+   discountOD: {
+      color: '#0A0102',
+      fontWeight: '500',
+      fontSize: '16px',
+   },
+   costOD: {
+      color: '#878787',
+      textDecorationLine: 'line-through',
+      fontSize: '10px',
+   },
+   btnOD: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'flex-end',
    }
 })
 
@@ -183,6 +255,9 @@ function MyCart(props) {
    const [order, setOrder] = useState(false)
    const [count, setCount] = useState(1)
    const [quantity, setQuantity] = useState([])
+   const [orderList, setOrderList] = useState([])
+   const [refresh, setRefresh] = useReducer(x => x + 1, 0)
+   // const [inputFields, setInputFields] = ({product_id: '', product_name: '', product_quantity: '', product_price: ''})
    const navigate = useNavigate()
 
    const openDashBoard = () => {
@@ -194,57 +269,88 @@ function MyCart(props) {
       setButton(true)
    }
 
-   const openBookDetails = () => {
+   const openOrderDetails = () => {
       setOrder(true)
    }
 
-   const getList = (obj) => {
+   const getList = () => {
       console.log('cart list books')
-      
-      cartBookList().then((response) => {
+
+      getCartItems().then((response) => {
          console.log(response)
          setCartList(response.data.result)
          setQuantity(response.data.result)
-         
-//         setCartList(idListArray)
+         setOrderList(response.data.result)
       }).catch((error) => console.log(error))
    }
 
-   const decrementValue = (id) => {
-      if (count < 2) {
+   const decrementValue = (id,quan) => {
+      if (count > 1) {
+         setCount(count => count - 1)
+         let inputObj = {
+            cartItem_id: id,
+            quantityToBuy: quan - 1
+         }
+         console.log(inputObj, 'value of quantity')
+         cartItemQuantity(inputObj).then((response) => {
+            console.log(response, 'decrement value');
+            setRefresh()
+         }).catch((error) => console.log(error))
+      } else {
          setCount(1)
-     } else {
-         setCount(prevcount => prevcount - 1)
-     }
-     let inputObj = { cartItem_id:id, quantityToBuy: count - 1 }
-     console.log(inputObj, 'value of quantity')
-     itemsCount(inputObj ).then((response) => {
-         console.log(response, 'decrement value')
-     }).catch((error) => console.log(error))
-     console.log(quantity, 'quantity value of product dec....')
+      }
+      console.log(quantity, 'quantity value of product dec....')
    }
 
-   const incrementValue = (id) => {
-      console.log(id, 'from mycart inc...' )
-      setCount(prevcount => prevcount + 1)
-      let inputObj = { cartItem_id:id, quantityToBuy: count + 1 }
+   const incrementValue = (id,quan) => {
+      console.log(id, 'from mycart inc...')
+      setCount(count => count + 1)
+      let inputObj = {
+         cartItem_id: id,
+         quantityToBuy: quan + 1
+      }
       console.log(inputObj, 'value of quantity')
-      itemsCount(inputObj).then((response) => {
-         console.log(response, 'increment value')
+      cartItemQuantity(inputObj).then((response) => {
+         console.log(response, 'increment value');
+         setRefresh()
       }).catch((error) => console.log(error))
    }
 
    const removeItem = (id) => {
       console.log(id)
-        let obj = {cartItem_id: id}
+      let obj = { cartItem_id: id }
       removeFromCart(obj).then((response) => {
          console.log(response)
+         // setRefresh()
       }).catch((error) => console.log(error))
+   }
+
+   const placedSuccess = () => {
+      console.log(cartList, 'list of ordered books')
+      let orderList = [];
+
+      for (let i = 0; i < cartList.length; i++) {
+         let inObj = {
+            product_id: cartList[i].product_id._id,
+            product_name: cartList[i].product_id.bookName,
+            product_quantity: cartList[i].quantityToBuy,
+            product_price: cartList[i].product_id.discountPrice
+         }
+         orderList.push(inObj);
+      }
+      console.log(orderList, 'printing ordered data...')
+      let orderObj = {orders: orderList}
+      addOrder(orderObj).then((response) => {
+         console.log(response)
+      })
+         .catch((error) => { console.log(error) })
+
+      navigate('/ordersuccess')
    }
 
    useEffect(() => {
       getList()
-   }, [])
+   }, [refresh])
 
    const classes = useStyle()
    return (
@@ -286,18 +392,18 @@ function MyCart(props) {
                                  <Box sx={{ display: 'flex', alignItems: 'center', width: '50%', justifyContent: 'space-between' }}>
                                     <Box className={classes.circleMC}>
                                        <IconButton size='small' sx={{ widht: '20px', border: '1px solid #DBDBDB' }}
-                                          onClick={()=>decrementValue(list.product_id._id)} ><RemoveIcon fontSize='small' sx={{ color: '#DBDBDB' }} /></IconButton>
+                                          onClick={() => decrementValue(list._id,list.quantityToBuy)} ><RemoveIcon fontSize='small' sx={{ color: '#DBDBDB' }} /></IconButton>
                                     </Box>
                                     <Box sx={{ width: '41px', height: '24px', border: '1px solid #DBDBDB' }}>
                                        <span style={{ fontSize: '14px' }} >{list.quantityToBuy}</span>
                                     </Box>
                                     <Box className={classes.circleMC}>
                                        <IconButton size='small' sx={{ border: '1px solid #DBDBDB' }}
-                                          onClick={()=>incrementValue(list.product_id._id)}><AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
+                                          onClick={() => incrementValue(list._id,list.quantityToBuy)}><AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
                                     </Box>
                                  </Box>
                                  <Box sx={{ width: '30%' }}>
-                                    <span style={{ fontSize: '14px', color: '#0A0102', fontWeight: '500' }} onClick={()=>removeItem(list._id)}>Remove</span>
+                                    <span style={{ fontSize: '14px', color: '#0A0102', fontWeight: '500' }} onClick={() => removeItem(list._id)}>Remove</span>
                                  </Box>
                               </Box>
                            </Box>
@@ -313,16 +419,41 @@ function MyCart(props) {
                   </Box>
                </Box>
             </Card>
-
-
             <Box sx={{ height: '2vh' }}></Box>
-            {toggle ? <CustomerDetails openBookDetails={openBookDetails} /> :
+            {toggle ? <CustomerDetails openOrderDetails={openOrderDetails} /> :
                <Card className={classes.addressOrderMC} variant="outlined">
                   <span className={classes.textMC}>Address Details</span>
                </Card>}
             <Box sx={{ height: '2vh' }}></Box>
             {
-               order ? <OrderSummary /> :
+               order ?
+                  // <Box>{ orderList.map((item) => (<OrderSummary item = {item}/>)) }</Box>
+                  <Card className={classes.mainOD} variant='outlined'>
+                     <Box className={classes.contentOD}>
+                        <Box className={classes.headOD}>
+                           <span>Order summery</span>
+                        </Box>
+                        {orderList.map((item) => (
+                           <Box className={classes.bookOD}>
+                              <Box className={classes.bookImgOD}>
+                                 <img width='100%' height='100%' src='images/bookimg.png' />
+                              </Box>
+                              <Box className={classes.dataOD}>
+                                 <Box sx={{ height: '30%', fontSize: '17px', color: '#0A0102', fontWeight: '500' }}>{item.product_id.bookName}</Box>
+                                 <Box sx={{ height: '24%', fontSize: '13px', color: '#9D9D9D', fontWeight: '500' }}>{item.product_id.author}</Box>
+                                 <Box className={classes.priceOD}>
+                                    <Box className={classes.discountOD}>Rs. {item.product_id.discountPrice}</Box><Box className={classes.costOD}>Rs. {item.product_id.price}</Box></Box>
+                                 <Box sx={{ height: '15%' }}></Box>
+                              </Box>
+                           </Box>))
+                        }
+                        <Box className={classes.btnOD}>
+                           <Button variant='contained' sx={{ width: '23%' }} onClick={placedSuccess}>Checkout</Button>
+                        </Box>
+                     </Box>
+
+                  </Card>
+                  :
                   <Card className={classes.addressOrderMC} variant="outlined">
                      <span className={classes.textMC}>Order summery</span>
                   </Card>

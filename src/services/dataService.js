@@ -18,18 +18,18 @@ export const addToCart = (id) => {
 }
 
 export const addToWishList = (id) => {
-    let response = axios.post(`https://bookstore.incubation.bridgelabz.com/bookstore_user/add_wish_list/${id}`, null,
+    let response = axios.post(`https://bookstore.incubation.bridgelabz.com/bookstore_user/add_wish_list/${id.product_id}`, id,
     headerConfig)
      return response
 }
 
-export const itemsCount = (inputObj) => {
+export const cartItemQuantity = (inputObj) => {
     let response = axios.put(`https://bookstore.incubation.bridgelabz.com/bookstore_user/cart_item_quantity/${inputObj.cartItem_id}`, inputObj,
      headerConfig)
       return response
 }
 
-export const cartBookList = () => {
+export const getCartItems = () => {
     let response = axios.get('https://bookstore.incubation.bridgelabz.com/bookstore_user/get_cart_items', headerConfig)
     return response
 }
@@ -46,8 +46,13 @@ export const editUser = (inputObj) => {
       return response
 }
 
-
 export const wishBookList = () => {
     let response = axios.get('https://bookstore.incubation.bridgelabz.com/bookstore_user/get_wishlist_items', headerConfig)
     return response
+}
+
+export const addOrder = (inputObj) => {
+    let response = axios.post('https://bookstore.incubation.bridgelabz.com/bookstore_user/add/order', inputObj,
+    headerConfig)
+     return response
 }

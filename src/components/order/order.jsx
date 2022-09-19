@@ -1,6 +1,6 @@
-import { Box, Button, Card } from '@mui/material';
+import { Box, Button, Card, ListItem } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { useState } from 'react';
 
 const useStyle = makeStyles({
    mainOD: {
@@ -75,7 +75,8 @@ const useStyle = makeStyles({
    
 })
 
-function OrderSummary() {
+function OrderSummary(props) {
+   // console.log(props.item)
    const classes = useStyle()
    return (
       <Card className={classes.mainOD} variant='outlined'>
@@ -83,18 +84,20 @@ function OrderSummary() {
             <Box className={classes.headOD}>
                <span>Order summery</span>
             </Box>
+             
             <Box className={classes.bookOD}>
                <Box className={classes.bookImgOD}>
                   <img width='100%' height='100%' src='images/bookimg.png' />
                </Box>
                <Box className={classes.dataOD}>
-                  <Box sx={{ height: '30%', fontSize: '17px', color: '#0A0102', fontWeight: '500' }}>Don't Make Me Think</Box>
-                  <Box sx={{ height: '24%', fontSize: '13px', color: '#9D9D9D', fontWeight: '500' }}>by Steve Krug</Box>
+                  <Box sx={{ height: '30%', fontSize: '17px', color: '#0A0102', fontWeight: '500' }}>{props.item.product_id.bookName}</Box>
+                  <Box sx={{ height: '24%', fontSize: '13px', color: '#9D9D9D', fontWeight: '500' }}>{props.item.product_id.author}</Box>
                   <Box className={classes.priceOD}>
-                     <Box className={classes.discountOD}>Rs. 15000</Box><Box className={classes.costOD}>Rs. 20000</Box></Box>
+                     <Box className={classes.discountOD}>Rs. {props.item.product_id.discountPrice}</Box><Box className={classes.costOD}>Rs. {props.item.product_id.price}</Box></Box>
                   <Box sx={{ height: '15%' }}></Box>                  
                </Box>
             </Box>
+           
             <Box className={classes.btnOD}>
                <Button variant='contained' sx={{width: '23%'}}>Checkout</Button>
             </Box>
