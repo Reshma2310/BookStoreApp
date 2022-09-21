@@ -61,6 +61,7 @@ export default function Header() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [search, setSearch] = React.useState('')
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -170,7 +171,7 @@ export default function Header() {
                     <Box sx={{ width: '2%' }} />
                     <Search>
                         <SearchIconWrapper>
-                            <SearchIcon color='action' />
+                            <SearchIcon color='action'/>
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"

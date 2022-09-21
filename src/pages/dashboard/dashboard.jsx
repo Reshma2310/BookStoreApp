@@ -8,6 +8,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { getBooksList } from '../../services/dataService';
 import { useEffect } from 'react';
 import BookSummary from '../../components/booksummary/booksummary';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const useStyle = makeStyles({
     mainDB: {
@@ -77,12 +79,17 @@ function DashBoard(props) {
     const [inputFields, setInputFields] = useState({})
     const [bookList, setBookList] = useState([])
     const [display, setDisplay] = useState(false)
+    const [search,setsearch] = useState([])
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [postsPerPage, setPostsPerPage] = useState(8);
+    const [page, setPage] = useState(1)
+
 
     const openSummary = (bookObj) => {
-        console.log(bookObj, "this is for book details") 
-        setInputFields(bookObj)       
+        console.log(bookObj, "this is for book details")
+        setInputFields(bookObj)
         setDisplay(true);
-         console.log(inputFields.bookName , 'this is book data')
+        console.log(inputFields.bookName, 'this is book data')
     };
 
     const openBookPage = () => {
@@ -105,11 +112,15 @@ function DashBoard(props) {
         getBooks()
     }, [])
 
+    // const lastPostIndex = currentPage * postsPerPage;
+    // const firstPostIndex = lastPostIndex - postsPerPage;
+    // const currentPosts = bookList.slice(firstPostIndex, lastPostIndex);
+
     const classes = useStyle()
     return (
         <Box>
-            <Header />
-            <Box className={classes.mainDB}>                
+            <Header/>
+            <Box className={classes.mainDB}>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', border: '0px solid blue' }}>
                     <Box className={classes.headerDB}>
                         <Box className={classes.headDB}>
@@ -125,16 +136,45 @@ function DashBoard(props) {
                         </Box>
                     </Box>
                     {display ?
-                       <BookSummary id={inputFields._id} bookName={inputFields.bookName} author={inputFields.author} quantity={inputFields.quantity} 
-                       discountPrice={inputFields.discountPrice} price={inputFields.price} index={bookList.indexOf(inputFields)} 
-                       description={inputFields.description} openBookPage = {openBookPage}/>
-                    :
-                        bookList.map(
-                            (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh} 
-                             /></Box>)
-                        )
+                        <BookSummary id={inputFields._id} bookName={inputFields.bookName} author={inputFields.author} quantity={inputFields.quantity}
+                            discountPrice={inputFields.discountPrice} price={inputFields.price} index={bookList.indexOf(inputFields)}
+                            description={inputFields.description} openBookPage={openBookPage} />
+                        :
+                        // bookList.map(
+                        //     (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book}  autoRefresh={autoRefresh}
+                        //     /></Box>)
+                        // )
+                        page === 1 ?
+                            bookList.slice(0, 8).map(
+                                (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
+                                /></Box>)
+                            ) :
+                            page === 2 ?
+                                bookList.slice(8, 16).map(
+                                    (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
+                                    /></Box>)
+                                ) :
+                                page === 3 ?
+                                    bookList.slice(16, 24).map(
+                                        (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
+                                        /></Box>)
+                                    ) :
+                                    page === 4 ?
+                                        bookList.slice(24, 30).map(
+                                            (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
+                                            /></Box>)
+                                        ) :
+                                        null
                     }
                 </Box>
+            </Box>
+            <Box sx={{ height: '2vh', border: '0px solid pink' }}></Box>
+            <Box sx={{ display: 'flex', justifyContent: 'center', fontSize: '18px', color: '#878787' }}>
+                <Stack spacing={3}>
+                    <Pagination count={4} onChange={(event, value)=>setPage(value)}
+                        //  totalPosts={bookList.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} 
+                        shape="rounded" />
+                </Stack>
             </Box>
             <Box className={classes.footerDB}>
                 <Box className={classes.footerTextDB}>
