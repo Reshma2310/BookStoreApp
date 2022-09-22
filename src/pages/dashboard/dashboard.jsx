@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import BookSummary from '../../components/booksummary/booksummary';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { useNavigate } from "react-router-dom";
 
 const useStyle = makeStyles({
     mainDB: {
@@ -79,16 +80,19 @@ function DashBoard(props) {
     const [inputFields, setInputFields] = useState({})
     const [bookList, setBookList] = useState([])
     const [display, setDisplay] = useState(false)
-    const [search,setsearch] = useState([])
+    const [search, setSearch] = useState("")
     // const [currentPage, setCurrentPage] = useState(1);
     // const [postsPerPage, setPostsPerPage] = useState(8);
     const [page, setPage] = useState(1)
 
+    const [pageNum, setPageNum] = useState(false)
+    const navigate = useNavigate()
 
     const openSummary = (bookObj) => {
         console.log(bookObj, "this is for book details")
         setInputFields(bookObj)
         setDisplay(true);
+        setPageNum(true)
         console.log(inputFields.bookName, 'this is book data')
     };
 
@@ -112,6 +116,10 @@ function DashBoard(props) {
         getBooks()
     }, [])
 
+    const searchBook = (eve) => {
+        setSearch(eve.target.value)
+    }
+
     // const lastPostIndex = currentPage * postsPerPage;
     // const firstPostIndex = lastPostIndex - postsPerPage;
     // const currentPosts = bookList.slice(firstPostIndex, lastPostIndex);
@@ -119,7 +127,8 @@ function DashBoard(props) {
     const classes = useStyle()
     return (
         <Box>
-            <Header/>
+            <Header setSearch={setSearch} searchBook={searchBook} />
+
             <Box className={classes.mainDB}>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', border: '0px solid blue' }}>
                     <Box className={classes.headerDB}>
@@ -145,7 +154,7 @@ function DashBoard(props) {
                         //     /></Box>)
                         // )
                         page === 1 ?
-                            bookList.slice(0, 8).map(
+                            bookList.filter(book => book.bookName.toLowerCase().includes(search)).slice(0, 8).map(
                                 (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
                                 /></Box>)
                             ) :
@@ -169,13 +178,17 @@ function DashBoard(props) {
                 </Box>
             </Box>
             <Box sx={{ height: '2vh', border: '0px solid pink' }}></Box>
-            <Box sx={{ display: 'flex', justifyContent: 'center', fontSize: '18px', color: '#878787' }}>
-                <Stack spacing={3}>
-                    <Pagination count={4} onChange={(event, value)=>setPage(value)}
-                        //  totalPosts={bookList.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} 
-                        shape="rounded" />
-                </Stack>
-            </Box>
+            {
+                pageNum ? null :
+
+                    <Box sx={{ display: 'flex', justifyContent: 'center', fontSize: '18px', color: '#878787' }}>
+                        <Stack spacing={3}>
+                            <Pagination count={4} onChange={(event, value) => setPage(value)}
+                                //  totalPosts={bookList.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} 
+                                shape="rounded" />
+                        </Stack>
+                    </Box>
+            }
             <Box className={classes.footerDB}>
                 <Box className={classes.footerTextDB}>
                     <Box className={classes.textCopyDB}>

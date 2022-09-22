@@ -15,6 +15,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { useEffect } from 'react';
 
 
+
 const useStyle = makeStyles({
     headerBS: {
         width: '79vw',
@@ -289,7 +290,7 @@ function BookSummary(props) {
         setCount(count + 1);
         let inputObj = { cartItem_id: props.id, quantityToBuy: count + 1 }
         console.log(inputObj, 'value of quantity')
-        cartItemQuantity(inputObj).then((response) => {     
+        cartItemQuantity(inputObj).then((response) => {
             console.log(response, 'increment value')
         }).catch((error) => console.log(error))
     }
@@ -300,7 +301,7 @@ function BookSummary(props) {
         } else {
             setCount(count - 1)
         }
-        let inputObj = {cartItem_id: props.id, quantityToBuy: count - 1 }
+        let inputObj = { cartItem_id: props.id, quantityToBuy: count - 1 }
         console.log(inputObj, 'value of quantity')
         cartItemQuantity(inputObj).then((response) => {
             console.log(response, 'decrement value')
@@ -310,50 +311,50 @@ function BookSummary(props) {
     const addingToCart = () => {
         setCartBtn(true)
         console.log(props.id)
-        let cartObj={product_id: props.id}
+        let cartObj = { product_id: props.id }
         addToCart(cartObj).then((response) => {
-            console.log(response, 'add from booksummary')            
+            console.log(response, 'add from booksummary')
             setRefresh()
         }).catch((error) => { console.log(error) })
     }
 
     const addingToWishList = () => {
-        let wishObj={product_id: props.id}
+        setWishBtn(true)
+        let wishObj = { product_id: props.id }
         addToWishList(wishObj).then((response) => {
             console.log(response, 'wishlist from booksummary')
-            setRefresh()                 
-        }).catch((error) => { console.log(error) })
-        setWishBtn(true)        
+            setRefresh()
+        }).catch((error) => { console.log(error) })        
         console.log('Added to Wishlist')
     }
 
     useEffect(() => {
-        getCartItems().then((response)=> {
+        getCartItems().then((response) => {
             console.log(response)
             let idListArray = response.data.result.filter((cart) => {
-                if(props.id === cart.product_id._id){
+                if (props.id === cart.product_id._id) {
                     setCount(cart.quantityToBuy)
                     setCartId(cart._id)
-                    console.log(cart._id,cart.quantityToBuy, 'added cart item.. quantity.....')
-                   return cart
-                }           
-             })  
-             setCartBookId(idListArray)
-        }).catch((error)=> console.log(error))
-    
-        wishBookList().then((response)=> {
+                    console.log(cart._id, cart.quantityToBuy, 'added cart item.. quantity.....')
+                    return cart
+                }
+            })
+            setCartBookId(idListArray)
+        }).catch((error) => console.log(error))
+
+        wishBookList().then((response) => {
             console.log(response)
             let idWishList = response.data.result.filter((wish) => {
-                if(props.id === wish.product_id._id){
+                if (props.id === wish.product_id._id) {
                     // setCount(cart.quantityToBuy)
                     setCartId(wish._id)
                     console.log(wish._id, 'added Wishlist......')
-                   return wish
-                }           
-             })  
-             setWishId(idWishList)
-        }).catch((error)=> console.log(error)) 
-     }, [refresh])
+                    return wish
+                }
+            })
+            setWishId(idWishList)
+        }).catch((error) => console.log(error))
+    }, [refresh])
 
     return (
         <Box>
@@ -388,10 +389,11 @@ function BookSummary(props) {
                                         </Box>
                                 }
                                 {
-                                    (wishId.length != 0) ?
-                                        <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon sx={{ color: 'red' }} />}>Added</Button>
-                                        :
+                                    (wishId.length === 0) ?
                                         <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon />} onClick={addingToWishList}>Wishlist</Button>
+                                        :
+                                        <Button variant="contained" className={classes.listBtnBS} startIcon={<FavoriteIcon sx={{ color: 'red' }} />}>Added</Button>
+
                                 }
                             </Box>
                         </Box>

@@ -13,8 +13,9 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useNavigate } from "react-router-dom";
-import MyCart from '../mycart/mycart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
+import MyCart from '../mycart/mycart';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -56,12 +57,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function Header() {
+export default function Header({search, searchBook}) {
     const navigate = useNavigate()
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    const [search, setSearch] = React.useState('')
+    // const [search, setSearch] = React.useState("")
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -145,27 +146,24 @@ export default function Header() {
         navigate('/mycart')
     }
 
-    return (
+    const openWishList =() => {
+        navigate('/mywishlist')
+    }
 
+    // const onChange = (event) => {
+    //     setSearch(event.target.value)        
+    // }
+    // console.log(setSearch, 'searched items ....')
+
+    return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{ backgroundColor: '#A03037' }}>
                 <Toolbar>
                     <Box sx={{ width: '8%' }} />
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                    // sx={{ mr: 1 }}
-                    >
+                    <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" >
                         <img src='images/education.svg' />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
+                    <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }} >
                         Bookstore
                     </Typography>
                     <Box sx={{ width: '2%' }} />
@@ -173,33 +171,25 @@ export default function Header() {
                         <SearchIconWrapper>
                             <SearchIcon color='action'/>
                         </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
+                        <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} type="text" value={search} onChange={searchBook}/>
                     </Search>
-                    <Box sx={{ width: '14%' }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="medium" color="inherit" sx={{ flexDirection: 'column', width: '100%', borderLeft: '1px solid #89292f', borderRadius: '0%' }}>
+                    <Box sx={{ width: '8%', border: '0px solid pink' }} />
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, border: '0px solid blue' }}>
+                        <IconButton size="medium" color="inherit" sx={{ flexDirection: 'column', width: '6vw', borderLeft: '1px solid #89292f', borderRadius: '0%' }}>
                             <div><PermIdentityOutlinedIcon /></div><Box sx={{ fontSize: '12px' }}>Profile</Box>
                         </IconButton>
-                        <IconButton onClick={openCart}
-                            size="medium"
-                            aria-label="show 17 new notifications"
-                            color="inherit" sx={{ flexDirection: 'column', width: '100%', borderLeft: '1px solid #89292f', borderRight: '1px solid #89292f', borderRadius: '0%' }}
-                        >
+                        <IconButton onClick={openWishList} size="medium" color="inherit" sx={{ flexDirection: 'column', width: '6vw', 
+                            borderLeft: '1px solid #89292f', borderRadius: '0%' }} >
+                            <div><FavoriteIcon fontSize='medium'/></div><Box sx={{ fontSize: '10px' }}>WishList</Box>
+                        </IconButton>
+                        <IconButton onClick={openCart} size="medium" color="inherit" sx={{ flexDirection: 'column', width: '6vw', 
+                            borderLeft: '1px solid #89292f', borderRight: '1px solid #89292f', borderRadius: '0%' }} >
                             <div><ShoppingCartOutlinedIcon /></div><Box sx={{ fontSize: '10px' }}>Cart</Box>
                         </IconButton>
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
+                        <IconButton size="large" aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true"
+                            onClick={handleMobileMenuOpen} color="inherit" >
                             <MoreIcon />
                         </IconButton>
                     </Box>
