@@ -31,6 +31,7 @@ const useStyles = makeStyles({
         width: '50%',
         height: '76%',
         display: 'flex',
+        border: '0px solid blue',
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -54,21 +55,58 @@ const useStyles = makeStyles({
         fontSize: 'large',
         fontWeight: '500',
     },
-    loginLP: {
-        width: '26%',
-        height: '60%',
-        backgroundColor: '#FFFFFF',
-        borderC: '#E4E4E4',
-        position: 'relative',
-        bottom: '225px',
-        left: '690px',
-        zIndex: 15,
-        opacity: '1',
-        borderRadius: '21px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+    // loginLP: {
+    //     width: '26%',
+    //     height: '60%',
+    //     backgroundColor: '#FFFFFF',
+    //     borderC: '#E4E4E4',
+    //     position: 'relative',
+    //     bottom: '225px',
+    //     left: '690px',
+    //     zIndex: 15,
+    //     opacity: '1',
+    //     borderRadius: '21px',
+    //     display: 'flex',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    // },
+    ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
+        containerLP: {
+           display: 'none',
+        },        
     },
+    ['@media only screen and (min-width: 481px) and (max-width: 720px)']: {
+        containerLP: {
+            display: 'none',
+         },
+    },
+    ['@media only screen and (min-width: 721px) and (max-width: 1024px)']: {
+        containerLP: {
+            width: '50%',
+            height: '42%',            
+            top: '187px',
+            left: '100px',
+
+        },
+        logoTextLP: {
+            border: '0px solid blue',
+            width: '60%',
+            height: '76%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+        },
+        imgLogoLP: {
+            width: '12rem',
+            height: '12rem',
+        },
+        imgBookLP: {
+            width: '18px',
+            bottom: '150px',
+            left: '47px',        
+        },
+    }
 })
 
 function LanderPage() {

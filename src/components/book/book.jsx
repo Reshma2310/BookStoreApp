@@ -56,6 +56,7 @@ const useStyle = makeStyles({
     },
     authorB: {
         height: '22%',
+        fontSize: 'medium',
         color: '#878787',
         fontFamily: 'normal normal normal 10px/13px Roboto',
     },
@@ -98,6 +99,61 @@ const useStyle = makeStyles({
         color: '#878787',
         textDecorationLine: 'line-through',
         fontSize: '12px',
+    },
+    ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
+        mainB: {
+            width: '65vw',
+            marginBottom: '30px',
+            marginLeft: '30px',
+        },   
+        authorB:{
+            fontSize: 'small',
+        },  
+        priceB: {
+            width: '55%',
+        }
+    },
+    ['@media only screen and (min-width: 481px) and (max-width: 600px)']: {
+        mainB: {
+            width: '40vw',
+            height: '42vh',
+            marginBottom: '30px',
+            marginLeft: '60px',
+        }, 
+        authorB:{
+            fontSize: 'small',
+        },   
+        priceB: {
+            width: '58%',
+        }     
+    },
+    ['@media only screen and (min-width: 601px) and (max-width: 850px)']: {
+        mainB: {
+            width: '35vw',
+            height: '42vh',
+            marginBottom: '20px',
+            marginRight: '30px',
+            border: '0px solid blue',
+        }, 
+        authorB:{
+            fontSize: 'small',
+        }, 
+        priceB: {
+            width: '50%',
+        }        
+    },
+    
+    ['@media only screen and (min-width: 851px) and (max-width: 1024px)']: {
+        mainB: {
+            width: '27vw',
+            height: '42vh',
+            marginBottom: '30px',
+            marginRight: '25px',
+            border: '0px solid blue',
+        },
+        priceB: {
+            width: '50%',
+        }     
     }
 })
 

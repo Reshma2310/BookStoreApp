@@ -11,6 +11,8 @@ import BookSummary from '../../components/booksummary/booksummary';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from "react-router-dom";
+import { Grid } from "@mui/material";
+
 
 const useStyle = makeStyles({
     mainDB: {
@@ -45,7 +47,7 @@ const useStyle = makeStyles({
         color: '#878787',
     },
     btnDB: {
-        marginRight: '30px',
+        marginRight: '40px',
     },
     dropDownDB: {
         textTransform: 'none !important',
@@ -72,6 +74,122 @@ const useStyle = makeStyles({
         font: 'normal normal medium 12px/15px Lato',
         border: '0px solid pink',
         fontSize: '12px',
+    },
+    ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
+        mainDB: {
+            // width: '80vw',
+            left: '30px',
+            border: '0px solid black',
+        },
+        headerDB: {
+            border: '0px solid black',
+            
+            height: '15vh',
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+        },
+        headDB: {
+            width: '45%',
+        },
+        btnDB: {
+            marginRight: '0px',
+        },
+    },
+    ['@media only screen and (min-width: 481px) and (max-width: 600px)']: {
+        mainDB: {
+            // width: '60vw',
+            border: '0px solid black',
+            left: '80px',
+        },
+        headerDB: {
+            border: '0px solid black',
+            width: '80%',
+            height: '15vh',
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+        },
+        headDB: {
+            width: '45%',
+        },
+        btnDB: {
+            marginRight: '0px',
+        },
+    },
+    ['@media only screen and (min-width: 601px) and (max-width: 720px)']: {
+        mainDB: {
+            // width: '60vw',
+            border: '0px solid black',
+            left: '50px',
+        },
+        headerDB: {
+            border: '0px solid black',
+            height: '15vh',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+        },
+        headDB: {
+            width: '25%',
+        },
+        btnDB: {
+            marginRight: '0px',
+        },
+    },
+    ['@media only screen and (min-width: 721px) and (max-width: 800px)']: {
+        mainDB: {
+            // width: '90vw',
+            border: '0px solid black',
+            left: '70px',
+        },
+        headerDB: {
+            border: '0px solid black',
+            height: '12vh',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+        },
+        headDB: {
+            width: '25%',
+        },
+        btnDB: {
+            marginRight: '50px',
+        },
+    },
+    ['@media only screen and (min-width: 801px) and (max-width: 850px)']: {
+        mainDB: {
+            width: '80vw',
+            border: '0px solid black',
+            left: '70px',
+        },
+        headerDB: {
+            border: '0px solid black',
+            height: '12vh',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+        },
+        headDB: {
+            width: '20%',
+        },
+        btnDB: {
+            marginRight: '40px',
+        },
+    },
+    ['@media only screen and (min-width: 851px) and (max-width: 1024px)']: {
+        mainDB: {
+            width: '90vw',
+            border: '0px solid black',
+            left: '40px',
+        },
+        headerDB: {
+            border: '0px solid black',
+            height: '12vh',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+        },
+        headDB: {
+            width: '16%',
+        },
+        btnDB: {
+            marginRight: '40px',
+        },
     }
 })
 
@@ -153,27 +271,30 @@ function DashBoard(props) {
                         //     (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book}  autoRefresh={autoRefresh}
                         //     /></Box>)
                         // )
-                        page === 1 ?
-                            bookList.filter(book => book.bookName.toLowerCase().includes(search)).slice(0, 8).map(
-                                (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
-                                /></Box>)
-                            ) :
-                            page === 2 ?
-                                bookList.slice(8, 16).map(
-                                    (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
-                                    /></Box>)
+                        <Grid container spacing={1}>{
+                            page === 1 ?
+                                bookList.filter(book => book.bookName.toLowerCase().includes(search)).slice(0, 8).map(
+                                    (book) => (<Grid item lg={3} md={4} xs={12} sm={6} onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
+                                    /></Grid>)
                                 ) :
-                                page === 3 ?
-                                    bookList.slice(16, 24).map(
+                                page === 2 ?
+                                    bookList.slice(8, 16).map(
                                         (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
                                         /></Box>)
                                     ) :
-                                    page === 4 ?
-                                        bookList.slice(24, 30).map(
+                                    page === 3 ?
+                                        bookList.slice(16, 24).map(
                                             (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
                                             /></Box>)
                                         ) :
-                                        null
+                                        page === 4 ?
+                                            bookList.slice(24, 30).map(
+                                                (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
+                                                /></Box>)
+                                            ) :
+                                            null
+                        }
+                        </Grid>
                     }
                 </Box>
             </Box>

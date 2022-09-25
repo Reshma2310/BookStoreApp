@@ -116,10 +116,21 @@ const useStyle = makeStyles({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        border: '0px solid orange',
+
     },
     addBtnBS: {
         width: '45%',
         backgroundColor: '#A03037 !important',
+    },
+    incDecBS: {
+        display: 'flex',
+        alignItems: 'center',
+        width: '45%',
+        height: '',
+        justifyContent: 'space-between',
+        border: '0px solid orange',
+        
     },
     listBtnBS: {
         width: '45%',
@@ -261,13 +272,534 @@ const useStyle = makeStyles({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    // circleBS: {
-    //     width: '24px',
-    //     height: '24px',
-    //     background: '#FAFAFA',
-    //     border: '1px solid #DBDBDB',
-    //     borderRadius: '50%',
-    // }
+    ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
+        headerBS: {
+            bottom: '95px',
+        },
+        homeBS: {
+            fontSize: '14px',
+        },
+        bookBS: {
+            fontSize: '14px',
+        },
+        mainBS: {
+            width: '77vw',
+            height: '225vh',
+            border: '0px solid black',
+            backgroundColor: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent:'space-between',
+            alignItems: 'flex-start',
+            position: 'relative',
+            bottom: '95px',
+        },
+        bookImgBS: {
+            width: '25%',
+            height: '60px',
+            display: 'flex',
+            flexDirection: 'row',
+            border: '0px solid blue',
+        },
+        bookOneBS: {
+            width: '50%',
+            height: '100%',
+        },
+        bookTwoBS: {
+            width: '50%',
+            height: '100%',
+        },
+        bookDesBS: {
+            width: '100%',
+            height: '95%',
+            border: '0px solid blue',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+        },
+        bookImageBS: {
+            width: '70%',
+            height: '23%',
+            border: '0px solid blue',
+            display: 'flex',
+            marginLeft: '30px',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+        },
+        bookCoverBS: {
+            width: '100%',
+            height: '80%',
+            border: '1px solid #D1D1D1',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        bookBtnBS: {
+            width: '100%',
+            height: '10%',
+            display: 'flex',
+            alignItems: 'flex-end',
+        },
+        bookDetailsBS: {
+            width: '93%',
+            height: '75%',
+            border: '0px solid yellow',
+            display: 'flex',
+            justifyContent: 'flex-end',
+        },
+        buttonsBS: {
+            width: '100%',
+            height: '90%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+        },
+        addBtnBS: {
+            width: '45%',
+            fontSize: '9px !important',
+            backgroundColor: '#A03037 !important',
+        },
+        listBtnBS: {
+            width: '45%',
+            fontSize: '9px !important',
+            backgroundColor: '#333333 !important',
+        },
+        detailsBS: {
+            width: '93%',
+            height: '100%',
+            border: '0px solid orange',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+        },
+        bookTitleBS: {
+            width: '100%',
+            fontSize: '22px',
+            fontWeight: '500',
+            border: '0px solid orange',
+            textAlign: 'left',
+        },
+        bookAuthorBS: {
+            fontSize: '18px',
+            color: '#878787',
+        },
+        pointsBS: {
+            width: '28%',
+            height: '4%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            border: '0px solid blue',
+        },
+        ratingBS: {
+            width: '60%',
+            height: '60%',
+            backgroundColor: '#388E3C',
+            border: '0px solid blue',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            color: 'white',
+        },
+        markBS: {
+            width: '30%',
+            color: '#878787',
+            fontFamily: 'normal normal normal Roboto',
+            fontSize: '15px',
+        },
+        priceBS: {
+            width: '60%',
+        },
+        discountBS: {
+            fontWeight: '500',
+            fontSize: '22px',
+        },
+        costBS: {
+            color: '#878787',
+            textDecorationLine: 'line-through',
+            fontSize: '15px',
+        },
+        paraBS: {
+            width: '100%',
+            height: '23%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end'
+        },
+        paraTextBS: {
+            width: '100%',
+            height: '55%',
+            border: '0px solid blue',
+            overflow: 'hidden',
+            textAlign: 'justify',
+    
+        },
+        feedbackBS: {
+            height: '5%',
+            border: '0px solid blue',
+            display: 'flex',
+            alignItems: 'center',
+            fontSize: '18px',
+            color: '#0A0102',
+        },
+        fbStarBS: {
+            width: '100%',
+            height: '20%',
+            backgroundColor: '#F5F5F5',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        fbBoxBS: {
+            width: '95%',
+            height: '86%',
+            border: '0px solid pink',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'flex-start',    
+        },
+        fbStartBS: {
+            width: '10%',
+            height: '22%',
+        },
+        inputBS: {
+            width: '100%',
+            height: '37%',
+            backgroundColor: 'white',
+            textAlign: 'left',
+        },
+        btnBS: {
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+        },
+        fbOneBS: {
+            width: '100%',
+            height: '23%',
+            border: '0px solid orange',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+        },
+        fbContentBS: {
+            width: '27px',
+            height: '27px',
+            backgroundColor: '#F5F5F5',
+            border: '1px solid #E4E4E4',
+            color: '#707070',
+            borderRadius: '50%',
+            fontSize: '12px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+    },
+    ['@media only screen and (min-width: 481px) and (max-width: 720px)']: {
+        headerBS: {
+            bottom: '95px',
+        },
+        homeBS: {
+            fontSize: '14px',
+        },
+        bookBS: {
+            fontSize: '14px',
+        },
+        mainBS: {
+            width: '77vw',
+            height: '220vh',
+            border: '0px solid black',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent:'space-between',
+            alignItems: 'flex-start',
+            position: 'relative',
+            bottom: '95px',
+            backgroundColor: 'white',
+        },
+        bookImgBS: {
+            width: '25%',
+            height: '60px',
+            display: 'flex',
+            flexDirection: 'row',
+            border: '0px solid blue',
+        },
+        bookOneBS: {
+            width: '40%',
+            height: '100%',
+        },
+        bookTwoBS: {
+            width: '40%',
+            height: '100%',
+        },
+        bookDesBS: {
+            width: '100%',
+            height: '95%',
+            border: '0px solid blue',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+        },
+        bookImageBS: {
+            width: '66%',
+            height: '25%',
+            border: '0px solid blue',
+            display: 'flex',
+            marginLeft: '30px',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+        },
+        bookCoverBS: {
+            width: '70%',
+            height: '80%',
+            border: '1px solid #D1D1D1',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        bookBtnBS: {
+            width: '100%',
+            height: '10%',
+            display: 'flex',
+            alignItems: 'flex-end',
+        },
+        bookDetailsBS: {
+            width: '93%',
+            height: '70%',
+            border: '0px solid yellow',
+            display: 'flex',
+            justifyContent: 'flex-end',
+        },
+        buttonsBS: {
+            width: '100%',
+            height: '90%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+        },
+        addBtnBS: {
+            width: '45%',
+            fontSize: '12px !important',
+            backgroundColor: '#A03037 !important',
+        },
+        listBtnBS: {
+            width: '45%',
+            fontSize: '12px !important',
+            backgroundColor: '#333333 !important',
+        },
+        detailsBS: {
+            width: '93%',
+            height: '100%',
+            border: '0px solid orange',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+        },
+        bookTitleBS: {
+            width: '100%',
+            fontSize: '26px',
+            fontWeight: '500',
+            border: '0px solid orange',
+            textAlign: 'left',
+        },
+        bookAuthorBS: {
+            fontSize: '18px',
+            color: '#878787',
+        },
+        pointsBS: {
+            width: '28%',
+            height: '4%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            border: '0px solid blue',
+        },
+        ratingBS: {
+            width: '60%',
+            height: '60%',
+            backgroundColor: '#388E3C',
+            border: '0px solid blue',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            color: 'white',
+        },
+        markBS: {
+            width: '30%',
+            color: '#878787',
+            fontFamily: 'normal normal normal Roboto',
+            fontSize: '15px',
+        },
+        priceBS: {
+            width: '45%',
+        },
+        discountBS: {
+            fontWeight: '500',
+            fontSize: '22px',
+        },
+        costBS: {
+            color: '#878787',
+            textDecorationLine: 'line-through',
+            fontSize: '15px',
+        },
+        paraBS: {
+            width: '100%',
+            height: '23%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end'
+        },
+        paraTextBS: {
+            width: '100%',
+            height: '55%',
+            border: '0px solid blue',
+            overflow: 'hidden',
+            textAlign: 'justify',
+    
+        },
+        feedbackBS: {
+            height: '5%',
+            border: '0px solid blue',
+            display: 'flex',
+            alignItems: 'center',
+            fontSize: '18px',
+            color: '#0A0102',
+        },
+        fbStarBS: {
+            width: '100%',
+            height: '20%',
+            backgroundColor: '#F5F5F5',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        fbBoxBS: {
+            width: '95%',
+            height: '86%',
+            border: '0px solid pink',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'flex-start',    
+        },
+        fbStartBS: {
+            width: '10%',
+            height: '22%',
+        },
+        inputBS: {
+            width: '100%',
+            height: '37%',
+            backgroundColor: 'white',
+            textAlign: 'left',
+        },
+        btnBS: {
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+        },
+        fbOneBS: {
+            width: '100%',
+            height: '20%',
+            border: '0px solid orange',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+        },
+        fbContentBS: {
+            width: '27px',
+            height: '27px',
+            backgroundColor: '#F5F5F5',
+            border: '1px solid #E4E4E4',
+            color: '#707070',
+            borderRadius: '50%',
+            fontSize: '12px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+    },
+    ['@media only screen and (min-width: 721px) and (max-width: 1024px)']: {
+        headerBS: {
+            width: '90vw',
+            height: '10vh',
+        },
+        homeBS: {
+            color: '#9D9D9D',
+            fontSize: '12px',
+        },
+        bookBS: {
+            color: '#0A0102',
+            fontSize: '12px',
+        },
+        mainBS: {
+            width: '85vw',
+            height: '120vh',
+        },
+        bookImageBS: {
+            width: '32%',
+            height: '40%',
+            border: '0px solid blue',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        buttonsBS: {
+            height: '90%',
+        },
+        addBtnBS: {
+            width: '45%',
+            fontSize: '9px !important',
+            backgroundColor: '#A03037 !important',
+        },
+        listBtnBS: {
+            width: '45%',
+            fontSize: '9px !important',
+            backgroundColor: '#333333 !important',
+        },
+        bookTitleBS: {
+            fontSize: '26px',   
+        },
+        pointsBS: {
+            width: '20%',
+        },
+        priceBS: {
+            width: '45%',
+        },
+        discountBS: {
+            fontWeight: '500',
+            fontSize: '26px',
+        },
+        costBS: {
+            color: '#878787',
+            textDecorationLine: 'line-through',
+            fontSize: '15px',
+        },
+        fbStarBS: {
+            width: '100%',
+            height: '20%',
+            backgroundColor: '#F5F5F5',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        fbOneBS: {
+            width: '100%',
+            height: '18%',
+        },
+    }
 })
 
 function BookSummary(props) {
@@ -282,7 +814,7 @@ function BookSummary(props) {
     const classes = useStyle()
     // const [refresh, forceUpdate] = useReducer(x => x + 1, 0);
 
-    const openBook = () => {
+    const openBooks = () => {
         props.openBookPage()
         setCartBtn(true)
     }
@@ -359,7 +891,7 @@ function BookSummary(props) {
     return (
         <Box>
             <Box className={classes.headerBS}>
-                <span className={classes.homeBS} onClick={openBook}>Home /</span>&nbsp;<span className={classes.bookBS}> Book({props.index + 1})</span>
+                <span className={classes.homeBS} onClick={openBooks}>Home /</span>&nbsp;<span className={classes.bookBS}> Book({props.index + 1})</span>
             </Box>
             <Box className={classes.mainBS}>
                 <Box className={classes.bookImgBS}>
@@ -374,16 +906,16 @@ function BookSummary(props) {
                             <Box className={classes.buttonsBS}>
                                 {
                                     (cartId.length === 0) ? <Button variant="contained" className={classes.addBtnBS} onClick={addingToCart}>Add to Bag</Button> :
-                                        <Box sx={{ display: 'flex', alignItems: 'center', width: '45%', justifyContent: 'space-between', border: '0px solid orange' }}>
+                                        <Box className={classes.incDecBS}>
                                             <Box >
-                                                <IconButton onClick={decrement} size='medium' sx={{ border: '1px solid #DBDBDB' }}>
+                                                <IconButton onClick={decrement} size='small' sx={{ border: '1px solid #DBDBDB' }}>
                                                     <RemoveIcon fontSize='small' sx={{ color: '#DBDBDB' }} /></IconButton>
                                             </Box>
-                                            <Box sx={{ width: '40%', height: '95%', border: '1px solid #DBDBDB' }} >
-                                                <span style={{ fontSize: '22px' }} >{count}</span>
+                                            <Box sx={{ width: '40%', height: '75%', border: '1px solid #DBDBDB' }} >
+                                                <span style={{ fontSize: 'large' }} >{count}</span>
                                             </Box>
                                             <Box>
-                                                <IconButton onClick={increment} size='medium' sx={{ border: '1px solid #DBDBDB' }}>
+                                                <IconButton onClick={increment} size='small' sx={{ border: '1px solid #DBDBDB' }}>
                                                     <AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
                                             </Box>
                                         </Box>

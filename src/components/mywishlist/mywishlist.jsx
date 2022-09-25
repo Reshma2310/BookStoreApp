@@ -139,7 +139,171 @@ const useStyle = makeStyles({
         border: '0px solid pink',
         fontSize: '12px',
     },
-
+    ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
+        headerMWL: {
+            left: '35px',
+        },
+        mainMWL: {
+            left: '35px',
+        },
+        bookDetailMWL: {
+            height: '21vh',
+        },
+        bookContentMWL: {
+            width: '85%',
+            height: '70%',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+        },
+        imgDetailMWL: {
+            width: '100%',
+            height: '70%',
+            border: '0px solid orange',
+        },
+        deleteMWL: {
+            height: '15%',
+            border: '0px solid orange',
+        },
+        imgBookMWL: {
+            width: '20%',
+            height: '100%',
+            border: '0px solid pink'
+        },
+        bookNameMWL: {
+            width: '70%',
+            height: '100%',
+        },
+        bookTitleMWL: {
+            height: '32%',
+            fontSize: '16px',
+        },
+        bookAuthorMWL: {
+            height: '28%',
+            fontSize: '12px',
+        },
+        bookPriceMWL: {
+            width: '65%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+        },
+        discountMWL: {
+            fontSize: '15px',
+        },
+        priceMWL: {
+            fontSize: '12px',
+            color: '#9D9D9D',
+            textDecorationLine: 'line-through',
+        },
+    },
+    ['@media only screen and (min-width: 481px) and (max-width: 720px)']: {
+        headerMWL: {
+            left: '60px',
+        },
+        mainMWL: {
+            left: '60px',
+        },
+        bookDetailMWL: {
+            height: '21vh',
+        },
+        bookContentMWL: {
+            width: '85%',
+            height: '65%',
+        },
+        imgDetailMWL: {
+            width: '80%',
+            height: '100%',
+            border: '0px solid orange',
+        },
+        deleteMWL: {
+            border: '0px solid orange',
+        },
+        imgBookMWL: {
+            width: '22%',
+            height: '100%',
+            border: '0px solid pink'
+        },
+        bookNameMWL: {
+            width: '70%',
+            height: '100%',
+        },
+        bookTitleMWL: {
+            height: '32%',
+            fontSize: '16px',
+        },
+        bookAuthorMWL: {
+            height: '28%',
+            fontSize: '12px',
+        },
+        bookPriceMWL: {
+            width: '55%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+        },
+        discountMWL: {
+            fontSize: '15px',
+        },
+        priceMWL: {
+            fontSize: '12px',
+            color: '#9D9D9D',
+            textDecorationLine: 'line-through',
+        },
+    },
+    ['@media only screen and (min-width: 721px) and (max-width: 1024px)']: {
+        headerMWL: {
+            left: '90px',
+        },
+        mainMWL: {
+            left: '90px',
+        },
+        bookDetailMWL: {
+            height: '21vh',
+        },
+        bookContentMWL: {
+            width: '85%',
+            height: '65%',
+        },
+        imgDetailMWL: {
+            width: '60%',
+            height: '100%',
+            border: '0px solid orange',
+        },
+        deleteMWL: {
+            border: '0px solid orange',
+        },
+        imgBookMWL: {
+            width: '21%',
+            height: '100%',
+            border: '0px solid pink'
+        },
+        bookNameMWL: {
+            width: '70%',
+            height: '100%',
+        },
+        bookTitleMWL: {
+            height: '32%',
+            fontSize: '18px',
+        },
+        bookAuthorMWL: {
+            height: '28%',
+            fontSize: '12px',
+        },
+        bookPriceMWL: {
+            width: '48%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+        },
+        discountMWL: {
+            fontSize: '15px',
+        },
+        priceMWL: {
+            fontSize: '12px',
+            color: '#9D9D9D',
+            textDecorationLine: 'line-through',
+        },
+    }
 })
 function MyWishList() {
     const classes = useStyle()
@@ -199,7 +363,7 @@ function MyWishList() {
                                     </Box>
                                 </Box>
                                 <Box className={classes.deleteMWL} onClick={() => deleteItem(list.product_id._id)}>
-                                    <DeleteIcon sx={{ color: '#9D9D9D' }} fontSize='small'/>
+                                    <DeleteIcon sx={{ color: '#9D9D9D' }} fontSize='small' />
                                 </Box>
                             </Box>
                         </Box>

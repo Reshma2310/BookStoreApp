@@ -102,6 +102,30 @@ const useStyles = makeStyles({
         color: 'black !important',
         fontWeight: '500 !important',
         textTransform: 'capitalize !important'
+    },
+    ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
+        loginSIP: {
+            width: '75vw',
+            height: '52vh',
+            top: '150px',
+            left: '50px',
+        },
+    },
+    ['@media only screen and (min-width: 481px) and (max-width: 720px)']: {
+        loginSIP: {
+            width: '55vw',
+            height: '52vh',
+            top: '150px',
+            left: '130px',
+        },
+    },
+    ['@media only screen and (min-width: 721px) and (max-width: 1024px)']: {
+        loginSIP: {
+            width: '40vw',
+            height: '52vh', 
+            top: '150px',
+            left: '350px',
+        },
     }
 })
 

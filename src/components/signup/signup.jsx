@@ -81,6 +81,30 @@ const useStyles = makeStyles({
         width: '100%',
         textTransform: 'capitalize !important',
         backgroundColor: '#A03037 !important',
+    },
+    ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
+        loginSU: {
+            width: '75vw',
+            height: '52vh',
+            top: '150px',
+            left: '50px',
+        },
+    },
+    ['@media only screen and (min-width: 481px) and (max-width: 720px)']: {
+        loginSU: {
+            width: '55vw',
+            height: '52vh',
+            top: '150px',
+            left: '130px',
+        },
+    },
+    ['@media only screen and (min-width: 721px) and (max-width: 1024px)']: {
+        loginSU: {
+            width: '40vw',
+            height: '52vh', 
+            top: '150px',
+            left: '350px',
+        },
     }
 })
 

@@ -42,7 +42,7 @@ const useStyle = makeStyles({
       fontWeight: '500',
    },
    btnCD: {
-      width: '23%'
+      width: '30%'
    },
    textfieldsCD: {
       width: '95%',
@@ -101,6 +101,100 @@ const useStyle = makeStyles({
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
+   },
+   contBtn: {
+      width: '23%',
+      height: '80%',
+   },
+   ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
+      mainCD: {
+         width: '80vw',
+      },
+      contentCD: {
+         width: '92%',
+         height: '90%',
+         border: '0px solid blue',
+         display: 'flex',
+         flexDirection: 'column',
+         justifyContent: 'space-between',
+         alignItems: 'center'
+      },
+
+      headCD: {
+         height: '5%',
+         border: '0px solid black'
+      },
+      textCD: {
+         color: '#333232',
+         fontSize: '18px',
+         fontWeight: '500',
+      },
+      btnCD: {
+         display: 'none',
+      },
+
+      textfieldsCD: {
+         height: '82%',
+         border: '0px solid orange',
+      },
+
+      ctnBtnCD: {
+         width: '100%',
+         height: '10%',
+         border: '0px solid black',
+         display: 'flex',
+         justifyContent: 'flex-end'
+      },
+
+      mainFieldCD: {
+         width: '100%',
+         height: '100%',
+         border: '0px solid yellow',
+      },
+      inputCD: {
+         height: '25%',
+         flexDirection: 'column',
+         border: '0px solid pink'
+      },
+      textHeadCD: {
+         width: '100%',
+         height: '45%',
+      },
+      addressCD: {
+         width: '100%',
+         height: '15%',
+         border: '0px solid blue',
+         textAlign: 'left !important',
+         fontSize: '12px',
+      },
+      addCD: {
+         width: '100%',
+         height: '100%',
+      },
+      radioCD: {
+         width: '60%',
+         height: '14%',
+         border: '0px solid pink',
+         textAlign: 'left',
+         fontSize: '12px',
+         display: 'flex',
+         flexDirection: 'column',
+         justifyContent: 'space-between',
+      },
+      contBtn: {
+         width: '35%',
+         height: '80%',
+      },
+   },
+   ['@media only screen and (min-width: 481px) and (max-width: 720px)']: {
+      mainCD: {
+         width: '80vw',
+      },
+   },
+   ['@media only screen and (min-width: 721px) and (max-width: 1024px)']: {
+      mainCD: {
+         width: '80vw',
+      },
    }
 })
 
@@ -255,7 +349,7 @@ function CustomerDetails(props) {
                {
                   button ? null
                      :
-                     <Button sx={{ width: '23%', height: '80%' }} variant='contained' onClick={openOrder}>Continue</Button>
+                     <Button className={classes.contBtn} variant='contained' onClick={openOrder}>Continue</Button>
                }
             </Box>
          </Box>

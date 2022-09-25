@@ -55,6 +55,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
             width: '37vw',
         },
     },
+    ['@media only screen and (min-width: 900px) and (max-width: 1024px)']: {
+        width: '30vw',
+    }
 }));
 
 export default function Header({search, searchBook}) {
@@ -106,6 +109,14 @@ export default function Header({search, searchBook}) {
         </Menu>
     );
 
+    const openCart = () => {
+        navigate('/mycart')
+    }
+
+    const openWishList =() => {
+        navigate('/mywishlist')
+    }
+
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu
@@ -129,7 +140,17 @@ export default function Header({search, searchBook}) {
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={openWishList}>
+                <IconButton
+                    size="large"
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                >
+                    <FavoriteIcon />
+                </IconButton>
+                <p>WishList</p>
+            </MenuItem>
+            <MenuItem onClick={openCart}>
                 <IconButton
                     size="large"
                     aria-label="show 17 new notifications"
@@ -141,14 +162,6 @@ export default function Header({search, searchBook}) {
             </MenuItem>
         </Menu>
     );
-
-    const openCart = () => {
-        navigate('/mycart')
-    }
-
-    const openWishList =() => {
-        navigate('/mywishlist')
-    }
 
     // const onChange = (event) => {
     //     setSearch(event.target.value)        

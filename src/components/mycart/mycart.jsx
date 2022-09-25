@@ -38,6 +38,14 @@ const useStyle = makeStyles({
       color: '#0A0102',
       fontSize: '12px',
    },
+   locationBtn: {
+      width: '32%',
+      textTransform: 'none',
+      color: '#0A0102 !important',
+      borderColor: '#DCDCDC !important',
+      display: 'flex',
+      justifyContent: 'space-around'
+   },
    mainMC: {
       width: '61vw',
       height: 'auto',
@@ -130,13 +138,6 @@ const useStyle = makeStyles({
       alignContent: 'center',
       border: '0px solid blue'
    },
-   // circleMC: {
-   //    width: '24px',
-   //    height: '24px',
-   //    background: '#FAFAFA',
-   //    border: '1px solid #DBDBDB',
-   //    borderRadius: '50%',
-   // },
    addressOrderMC: {
       width: '100%',
       height: '7vh',
@@ -174,7 +175,9 @@ const useStyle = makeStyles({
       border: '0px solid pink',
       fontSize: '12px',
    },
-
+   placeBtn: {
+      width: '23%',
+   },
    mainOD: {
       width: '61vw',
       height: 'auto',
@@ -245,6 +248,132 @@ const useStyle = makeStyles({
       width: '100%',
       display: 'flex',
       justifyContent: 'flex-end',
+   },
+   checkBtnOD: {
+      width: '23%',
+   },
+
+   ['@media only screen and (min-width: 320px) and (max-width: 481px)']: {
+      headerMC: {
+         width: '80vw',
+         left: '33px',
+      },
+      mainMC: {
+         width: '80vw',
+         left: '33px',
+      },           
+      locationBtn: {
+         display: 'none !important',
+      },
+      contentTwoMC: {
+         width: '100%',
+         height: '18vh',
+         border: '0px solid blue'
+      },
+      priceMC: {
+         width: '60%',
+      },
+      placeBtn: {
+         width: '60%',
+      },
+      mainOD: {
+         width: '80vw',
+      },
+      bookOD: {
+         width: '100%',
+         height: '13vh',
+         border: '0px solid blue',
+      },
+      bookImgOD: {
+         width: '20%',
+         height: '80%',
+         marginTop: '5px',
+         border: '0px solid orange',
+      },
+      priceOD: {
+         width: '60%',
+         height: '25%',
+      },
+      checkBtnOD: {
+         width: '38%',
+      },
+   },   
+
+   ['@media only screen and (min-width: 481px) and (max-width: 720px)']: {
+      headerMC: {
+         width: '80vw',
+         left: '63px',
+      },
+      mainMC: {
+         width: '80vw',
+         left: '63px',
+      },
+      contentTwoMC: {
+         width: '70%',
+         height: '19vh',
+      },
+      placeBtn: {
+         width: '40%',
+      },
+      mainOD: {
+         width: '80vw',
+      },
+      bookOD: {
+         width: '80%',
+         height: '13vh',
+      },
+      bookImgOD: {
+         width: '20%',
+         height: '90%',
+         marginTop: '5px',
+         border: '0px solid orange',
+      },
+      priceOD: {
+         width: '49%',
+         height: '25%',
+      },
+      locationBtn: {
+         width: '50%',
+         fontSize: '12px !important',
+      },
+   },
+
+   ['@media only screen and (min-width: 721px) and (max-width: 1024px)']: {
+      headerMC: {
+         width: '80vw',
+         left: '103px',
+      },
+      mainMC: {
+         width: '80vw',
+         left: '103px',
+      },
+      contentTwoMC: {
+         width: '50%',
+         height: '19vh',
+      },
+      placeBtn: {
+         width: '30%',
+      },
+      mainOD: {
+         width: '80vw',
+      },
+      bookOD: {
+         width: '55%',
+         height: '13vh',
+      },
+      bookImgOD: {
+         width: '20%',
+         height: '90%',
+         marginTop: '5px',
+         border: '0px solid orange',
+      },
+      priceOD: {
+         width: '49%',
+         height: '25%',
+      },
+      locationBtn: {
+         width: '40%',
+      },
    }
 })
 
@@ -284,7 +413,7 @@ function MyCart(props) {
       }).catch((error) => console.log(error))
    }
 
-   const decrementValue = (id,quan) => {
+   const decrementValue = (id, quan) => {
       if (count > 1) {
          setCount(count => count - 1)
          let inputObj = {
@@ -302,7 +431,7 @@ function MyCart(props) {
       console.log(quantity, 'quantity value of product dec....')
    }
 
-   const incrementValue = (id,quan) => {
+   const incrementValue = (id, quan) => {
       console.log(id, 'from mycart inc...')
       setCount(count => count + 1)
       let inputObj = {
@@ -339,7 +468,7 @@ function MyCart(props) {
          orderList.push(inObj);
       }
       console.log(orderList, 'printing ordered data...')
-      let orderObj = {orders: orderList}
+      let orderObj = { orders: orderList }
       addOrder(orderObj).then((response) => {
          console.log(response)
       })
@@ -365,10 +494,7 @@ function MyCart(props) {
                   <Box className={classes.cartBtnMC}>
                      <Box sx={{ fontSize: '18px', fontWeight: '500' }}>My cart (1)</Box>
                      <Button startIcon={<LocationOnIcon sx={{ color: '#A03037' }} />} endIcon={<ArrowDropDownIcon sx={{ width: '30px', height: 'auto', color: '#DCDCDC' }} />}
-                        variant="outlined" sx={{
-                           width: '32%', textTransform: 'none', color: '#0A0102', borderColor: '#DCDCDC', display: 'flex',
-                           justifyContent: 'space-around'
-                        }}>Use current location</Button>
+                        variant="outlined" className={classes.locationBtn} >Use current location</Button>
                   </Box>
                   <Box sx={{ height: '2vh' }}></Box>
                   {
@@ -392,14 +518,14 @@ function MyCart(props) {
                                  <Box sx={{ display: 'flex', alignItems: 'center', width: '50%', justifyContent: 'space-between' }}>
                                     <Box className={classes.circleMC}>
                                        <IconButton size='small' sx={{ widht: '20px', border: '1px solid #DBDBDB' }}
-                                          onClick={() => decrementValue(list._id,list.quantityToBuy)} ><RemoveIcon fontSize='small' sx={{ color: '#DBDBDB' }} /></IconButton>
+                                          onClick={() => decrementValue(list._id, list.quantityToBuy)} ><RemoveIcon fontSize='small' sx={{ color: '#DBDBDB' }} /></IconButton>
                                     </Box>
                                     <Box sx={{ width: '41px', height: '24px', border: '1px solid #DBDBDB' }}>
                                        <span style={{ fontSize: '14px' }} >{list.quantityToBuy}</span>
                                     </Box>
                                     <Box className={classes.circleMC}>
                                        <IconButton size='small' sx={{ border: '1px solid #DBDBDB' }}
-                                          onClick={() => incrementValue(list._id,list.quantityToBuy)}><AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
+                                          onClick={() => incrementValue(list._id, list.quantityToBuy)}><AddIcon fontSize='small' sx={{ color: '#333232' }} /></IconButton>
                                     </Box>
                                  </Box>
                                  <Box sx={{ width: '30%' }}>
@@ -414,7 +540,7 @@ function MyCart(props) {
                      {
                         button ? null
                            :
-                           <Button sx={{ backgroundColor: '#3371B5', width: '23%' }} variant="contained" onClick={openDetails}>Place Order</Button>
+                           <Button className={classes.placeBtn} sx={{ backgroundColor: '#3371B5' }} variant="contained" onClick={openDetails}>Place Order</Button>
                      }
                   </Box>
                </Box>
@@ -448,7 +574,7 @@ function MyCart(props) {
                            </Box>))
                         }
                         <Box className={classes.btnOD}>
-                           <Button variant='contained' sx={{ width: '23%' }} onClick={placedSuccess}>Checkout</Button>
+                           <Button variant='contained' className={classes.checkBtnOD} onClick={placedSuccess}>Checkout</Button>
                         </Box>
                      </Box>
 

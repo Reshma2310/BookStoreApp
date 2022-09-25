@@ -39,7 +39,7 @@ const useStyle = makeStyles({
         border: '1px solid #DCDCDC',
         display: 'flex',
         flexDirection: 'column',
-    },   
+    },
     headOS: {
         width: '100%',
         height: '40%',
@@ -50,9 +50,11 @@ const useStyle = makeStyles({
         backgroundColor: '#FAFAFA',
         borderBottom: '1px solid #DCDCDC'
     },
+    hiddenTable: {
+        display: 'none',
+    },
     titleOS: {
         width: '31%',
-
     },
     addTitleOS: {
         width: '38%',
@@ -60,7 +62,7 @@ const useStyle = makeStyles({
     dataFieldOS: {
         width: '100%',
         height: '60%',
-        display: 'flex',        
+        display: 'flex',
         color: '#333232',
         fontSize: '14px',
         fontFamily: 'calibri'
@@ -70,13 +72,13 @@ const useStyle = makeStyles({
         borderRight: '2px solid #DCDCDC',
         display: 'flex',
         justifyContent: 'center',
-        alignItems:'center'
+        alignItems: 'center'
     },
     addDataOS: {
         width: '38%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems:'center'
+        alignItems: 'center'
     },
     spaceOS: {
         width: '90%',
@@ -85,7 +87,10 @@ const useStyle = makeStyles({
     },
     orderBtn: {
         width: '100%',
-
+    },
+    orderButton: {
+        backgroundColor: '#3371B5',
+        width: '25%'
     },
     footerOS: {
         width: '100vw',
@@ -109,6 +114,143 @@ const useStyle = makeStyles({
         font: 'normal normal medium 12px/15px Lato',
         border: '0px solid pink',
         fontSize: '12px',
+    },
+    ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
+        contentOS: {
+            width: '85%',
+            height: '98%',
+        },
+        orderLogoOS: {
+            width: '60%',
+            height: '20%',
+            border: '0px solid pink',
+        },
+        orderParaOS: {
+            width: '75%',
+            color: '#333232',
+            fontSize: '18px',
+            fontWeight: '500',
+        },
+        orderTableOS: {
+            display: 'none'
+        },
+        hiddenTable: {
+            display: 'flex',
+            flexDirection: 'column',
+            border: '1px solid #DCDCDC',
+            textAlign: 'left',
+        },
+        hiddenTitle: {
+            color: '#333232',
+            fontSize: '14px',
+            fontWeight: '500',
+            backgroundColor: '#FAFAFA',
+            borderBottom: '1px solid #DCDCDC',
+            height: 'auto',
+            padding: '5px',
+        },
+        hiddenOS: {
+            textAlign: 'center',
+            borderBottom: '1px solid #DCDCDC',
+            height: 'auto',
+            fontSize: '14px',
+            padding: '5px',
+        },
+        orderButton: {
+            backgroundColor: '#3371B5',
+            width: '70%'
+        },
+    },
+    ['@media only screen and (min-width: 481px) and (max-width: 599px)']: {
+        contentOS: {
+            width: '90%',
+            height: '98%',
+        },
+        orderLogoOS: {
+            width: '60%',
+            height: '30%',
+            border: '0px solid pink',
+        },
+        orderParaOS: {
+            width: '75%',
+            color: '#333232',
+            fontSize: '18px',
+            fontWeight: '500',
+        },
+        orderTableOS: {
+            width: '100%',
+            height: '28%',
+        },
+        headOS: {
+            width: '100%',
+            height: '30%',
+        },
+        dataFieldOS: {
+            width: '100%',
+            height: '70%',
+            fontSize: '13px',
+        },
+        orderButton: {
+            width: '44%'
+        },
+    },
+    ['@media only screen and (min-width: 600px) and (max-width: 720px)']: {
+        contentOS: {
+            width: '90%',
+            height: '98%',
+        },
+        orderLogoOS: {
+            width: '45%',
+            height: '30%',
+            border: '0px solid pink',
+        },
+        orderParaOS: {
+            width: '75%',
+            color: '#333232',
+            fontSize: '18px',
+            fontWeight: '500',
+        },
+        orderTableOS: {
+            width: '100%',
+            height: '28%',
+        },
+        headOS: {
+            width: '100%',
+            height: '30%',
+        },
+        dataFieldOS: {
+            width: '100%',
+            height: '70%',
+            fontSize: '16px',
+        },
+        orderButton: {
+            width: '40%'
+        },
+    },
+    ['@media only screen and (min-width: 721px) and (max-width: 1024px)']: {
+        contentOS: {
+            width: '75%',
+            height: '98%',
+        },
+        orderLogoOS: {
+            width: '40%',
+            height: '25%',
+            border: '0px solid pink',
+        },
+        orderParaOS: {
+            width: '45%',
+            color: '#333232',
+            fontSize: '18px',
+            fontWeight: '500',
+        },
+        orderTableOS: {
+            width: '100%',
+            height: '23%',
+        },
+        orderButton: {
+            backgroundColor: '#3371B5',
+            width: '37%'
+        },
     }
 })
 
@@ -154,17 +296,24 @@ function OrderSuccess() {
                             <Box className={classes.titleOS}>Email us</Box>
                             <Box className={classes.titleOS}>Contact us</Box>
                             <Box className={classes.addTitleOS}>Address</Box>
-
                         </Box>
                         <Box className={classes.dataFieldOS}>
-                        <Box className={classes.dataOS}><Box className={classes.spaceOS}>admin@bookstore.com</Box></Box>
-                        <Box className={classes.dataOS}><Box className={classes.spaceOS}>+91 8163475881</Box></Box>
-                        <Box className={classes.addDataOS}><Box className={classes.spaceOS} sx={{textAlign: 'left'}}>42, 14th Main, 15th Cross, Sector 4 ,opp to BDA complex, 
-                            near Kumarakom restaurant, HSR Layout, Bangalore 560034</Box></Box>
-                        </Box>                        
+                            <Box className={classes.dataOS}><Box className={classes.spaceOS}>admin@bookstore.com</Box></Box>
+                            <Box className={classes.dataOS}><Box className={classes.spaceOS}>+91 8163475881</Box></Box>
+                            <Box className={classes.addDataOS}><Box className={classes.spaceOS} sx={{ textAlign: 'left' }}>42, 14th Main, 15th Cross, Sector 4 ,opp to BDA complex,
+                                near Kumarakom restaurant, HSR Layout, Bangalore 560034</Box></Box>
+                        </Box>
+                    </Paper>
+                    <Paper elevation={0} className={classes.hiddenTable}>
+                        <Box>
+                            <Box className={classes.hiddenTitle}>Email us</Box><Box className={classes.hiddenOS}>admin@bookstore.com</Box>
+                            <Box className={classes.hiddenTitle}>Contact us</Box><Box className={classes.hiddenOS}>+91 8163475881</Box>
+                            <Box className={classes.hiddenTitle}>Address</Box><Box className={classes.hiddenOS} sx={{ textAlign: 'left' }}>42, 14th Main, 15th Cross, Sector 4 ,opp to BDA complex,
+                                near Kumarakom restaurant, HSR Layout, Bangalore 560034</Box>
+                        </Box>
                     </Paper>
                     <Box className={classes.orderBtn}>
-                        <Button variant='contained' sx={{backgroundColor: '#3371B5', width: '25%'}} onClick={openDashBoard}>Continue Shopping</Button>
+                        <Button variant='contained' className={classes.orderButton} onClick={openDashBoard}>Continue Shopping</Button>
                     </Box>
                 </Box>
             </Box>
