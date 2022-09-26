@@ -176,7 +176,7 @@ export default function Header({search, searchBook}) {
                     <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" >
                         <img src='images/education.svg' />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'block' } }} >
+                    <Typography variant="h6" noWrap component="div" sx={{ display: { xs: 'none', sm: 'none', lg: 'block' } }} >
                         Bookstore
                     </Typography>
                     <Box sx={{ width: '2%' }} />

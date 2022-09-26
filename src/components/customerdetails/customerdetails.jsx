@@ -109,6 +109,7 @@ const useStyle = makeStyles({
    ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
       mainCD: {
          width: '80vw',
+         height: '82vh',
       },
       contentCD: {
          width: '92%',
@@ -134,7 +135,7 @@ const useStyle = makeStyles({
       },
 
       textfieldsCD: {
-         height: '82%',
+         height: '80%',
          border: '0px solid orange',
       },
 
@@ -152,7 +153,7 @@ const useStyle = makeStyles({
          border: '0px solid yellow',
       },
       inputCD: {
-         height: '25%',
+         height: '30%',
          flexDirection: 'column',
          border: '0px solid pink'
       },
@@ -184,6 +185,7 @@ const useStyle = makeStyles({
       contBtn: {
          width: '35%',
          height: '80%',
+         fontSize: '13px !important',
       },
    },
    ['@media only screen and (min-width: 481px) and (max-width: 720px)']: {
@@ -288,12 +290,11 @@ function CustomerDetails(props) {
       if(cityTest === true && stateTest === true && addressTest === true) {
          editUser(inputFields).then((response) => {
             console.log(response)
+            setButton(true)
+            props.openOrderDetails() 
          }).catch((error) => { console.log(error) })
-      }
-      props.openOrderDetails()
-      setButton(true)
+      }           
    }
-
 
    const classes = useStyle()
    return (
@@ -328,11 +329,11 @@ function CustomerDetails(props) {
                   <Box className={classes.inputCD}>
                      <Box className={classes.textHeadCD}>
                         <span>city/town</span>
-                        <TextField variant="outlined" size='small' onChange={takingCity} error={regexObj.cityBorder} helperText={regexObj.cityHelper} />
+                        <TextField required variant="outlined" size='small' onChange={takingCity} error={regexObj.cityBorder} helperText={regexObj.cityHelper} />
                      </Box>
                      <Box className={classes.textHeadCD}>
                         <span>State</span>
-                        <TextField variant="outlined" size='small' onChange={takingState} error={regexObj.stateBorder} helperText={regexObj.stateHelper} />
+                        <TextField required variant="outlined" size='small' onChange={takingState} error={regexObj.stateBorder} helperText={regexObj.stateHelper} />
                      </Box>
                   </Box>
                   <Box className={classes.radioCD}>

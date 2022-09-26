@@ -64,7 +64,7 @@ const useStyle = makeStyles({
         height: '60%',
         display: 'flex',
         color: '#333232',
-        fontSize: '14px',
+        fontSize: '16px',
         fontFamily: 'calibri'
     },
     dataOS: {
@@ -116,19 +116,25 @@ const useStyle = makeStyles({
         fontSize: '12px',
     },
     ['@media only screen and (min-width: 320px) and (max-width: 480px)']: {
+        mainOS: {
+            width: '100vw',
+            height: '80vh',
+            border: '0px solid orange',
+        },
         contentOS: {
             width: '85%',
             height: '98%',
+            border: '0px solid orange',
         },
         orderLogoOS: {
             width: '60%',
-            height: '20%',
+            height: '30%',
             border: '0px solid pink',
         },
         orderParaOS: {
             width: '75%',
             color: '#333232',
-            fontSize: '18px',
+            fontSize: '16px',
             fontWeight: '500',
         },
         orderTableOS: {
@@ -142,7 +148,7 @@ const useStyle = makeStyles({
         },
         hiddenTitle: {
             color: '#333232',
-            fontSize: '14px',
+            fontSize: '13px',
             fontWeight: '500',
             backgroundColor: '#FAFAFA',
             borderBottom: '1px solid #DCDCDC',
@@ -153,12 +159,13 @@ const useStyle = makeStyles({
             textAlign: 'center',
             borderBottom: '1px solid #DCDCDC',
             height: 'auto',
-            fontSize: '14px',
+            fontSize: '12px',
             padding: '5px',
         },
         orderButton: {
             backgroundColor: '#3371B5',
-            width: '70%'
+            width: '70%',
+            fontSize: 'small !important',
         },
     },
     ['@media only screen and (min-width: 481px) and (max-width: 599px)']: {
@@ -167,7 +174,7 @@ const useStyle = makeStyles({
             height: '98%',
         },
         orderLogoOS: {
-            width: '60%',
+            width: '50%',
             height: '30%',
             border: '0px solid pink',
         },
@@ -194,13 +201,13 @@ const useStyle = makeStyles({
             width: '44%'
         },
     },
-    ['@media only screen and (min-width: 600px) and (max-width: 720px)']: {
+    ['@media only screen and (min-width: 599px) and (max-width: 720px)']: {
         contentOS: {
             width: '90%',
             height: '98%',
         },
         orderLogoOS: {
-            width: '45%',
+            width: '40%',
             height: '30%',
             border: '0px solid pink',
         },
@@ -221,7 +228,7 @@ const useStyle = makeStyles({
         dataFieldOS: {
             width: '100%',
             height: '70%',
-            fontSize: '16px',
+            fontSize: '14px',
         },
         orderButton: {
             width: '40%'
@@ -233,19 +240,24 @@ const useStyle = makeStyles({
             height: '98%',
         },
         orderLogoOS: {
-            width: '40%',
-            height: '25%',
+            width: '35%',
+            height: '28%',
             border: '0px solid pink',
         },
         orderParaOS: {
-            width: '45%',
+            width: '50%',
             color: '#333232',
-            fontSize: '18px',
+            fontSize: '16px',
             fontWeight: '500',
         },
         orderTableOS: {
             width: '100%',
             height: '23%',
+        },
+        dataFieldOS: {
+            width: '100%',
+            height: '70%',
+            fontSize: '13px',
         },
         orderButton: {
             backgroundColor: '#3371B5',
