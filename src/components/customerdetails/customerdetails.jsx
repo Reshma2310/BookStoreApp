@@ -340,7 +340,7 @@ function CustomerDetails(props) {
                      <Box> Type</Box>
                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onChange={selectOption}>
                         <Box sx={{ display: 'flex' }}><input style={{ width: '20%' }} type="radio" value="Home" name="type" /> &nbsp;&nbsp;Home</Box>
-                        <Box sx={{ display: 'flex' }}><input style={{ width: '20%' }} type="radio" value="Work" name="type" /> &nbsp;&nbsp;Work</Box>
+                        <Box sx={{ display: 'flex' }}><input style={{ width: '20%' }} type="radio" value="Office" name="type" /> &nbsp;&nbsp;Office</Box>
                         <Box sx={{ display: 'flex' }}><input style={{ width: '20%' }} type="radio" value="Other" name="type" /> &nbsp;&nbsp;Other</Box>
                      </Box>
                   </Box>
