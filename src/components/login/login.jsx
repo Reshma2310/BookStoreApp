@@ -212,7 +212,7 @@ function LoginPage(props) {
                             onChange={takeUserName} error={rejexObj.emailBorder} helperText={rejexObj.emailHelper} />
                     </Box>
                     <Box className={classes.titleTextSIP}><span>Password</span>
-                        <TextField className={classes.pwdSIP} variant="outlined" size="small" 
+                        <TextField className={classes.pwdSIP} variant="outlined" size="small" type="password"
                             onChange={takePassword} error={rejexObj.passwordBorder} helperText={rejexObj.passwordHelper}/>
                     </Box>
                     <Box >

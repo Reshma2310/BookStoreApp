@@ -199,8 +199,8 @@ function DashBoard(props) {
     const [bookList, setBookList] = useState([])
     const [display, setDisplay] = useState(false)
     const [search, setSearch] = useState("")
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [postsPerPage, setPostsPerPage] = useState(8);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(4);
     const [page, setPage] = useState(1)
 
     const [pageNum, setPageNum] = useState(false)
@@ -238,9 +238,9 @@ function DashBoard(props) {
         setSearch(eve.target.value)
     }
 
-    // const lastPostIndex = currentPage * postsPerPage;
-    // const firstPostIndex = lastPostIndex - postsPerPage;
-    // const currentPosts = bookList.slice(firstPostIndex, lastPostIndex);
+    const lastPostIndex = currentPage * postsPerPage;
+    const firstPostIndex = lastPostIndex - postsPerPage;
+    const currentPosts = bookList.filter(book => book.bookName.toLowerCase().includes(search)).slice(firstPostIndex, lastPostIndex);
 
     const classes = useStyle()
     return (
@@ -272,27 +272,29 @@ function DashBoard(props) {
                         //     /></Box>)
                         // )
                         <Grid container spacing={1}>{
-                            page === 1 ?
-                                bookList.filter(book => book.bookName.toLowerCase().includes(search)).slice(0, 8).map(
-                                    (book) => (<Grid item lg={3} md={4} xs={12} sm={6} onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
-                                    /></Grid>)
-                                ) :
-                                page === 2 ?
-                                    bookList.slice(8, 16).map(
-                                        (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
-                                        /></Box>)
-                                    ) :
-                                    page === 3 ?
-                                        bookList.slice(16, 24).map(
-                                            (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
-                                            /></Box>)
-                                        ) :
-                                        page === 4 ?
-                                            bookList.slice(24, 30).map(
-                                                (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
-                                                /></Box>)
-                                            ) :
-                                            null
+                            // page === 1 ?
+                            //     bookList.filter(book => book.bookName.toLowerCase().includes(search)).slice(0, 8).map(
+                            //         (book) => (<Grid item lg={3} md={4} xs={12} sm={6} onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
+                            //         /></Grid>)
+                            //     ) :
+                            //     page === 2 ?
+                            //         bookList.slice(8, 16).map(
+                            //             (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
+                            //             /></Box>)
+                            //         ) :
+                            //         page === 3 ?
+                            //             bookList.slice(16, 24).map(
+                            //                 (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
+                            //                 /></Box>)
+                            //             ) :
+                            //             page === 4 ?
+                            //                 bookList.slice(24, 30).map(
+                            //                     (book) => (<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}
+                            //                     /></Box>)
+                            //                 ) :
+                            //                 null
+
+                            currentPosts.map((book)=>(<Box onClick={() => openSummary(book)}><Book key={book._id} book={book} autoRefresh={autoRefresh}/></Box>))
                         }
                         </Grid>
                     }
@@ -303,11 +305,12 @@ function DashBoard(props) {
                 pageNum ? null :
 
                     <Box sx={{ display: 'flex', justifyContent: 'center', fontSize: '18px', color: '#878787' }}>
-                        <Stack spacing={3}>
+                        {/* <Stack spacing={3}>
                             <Pagination count={4} onChange={(event, value) => setPage(value)}
                                 //  totalPosts={bookList.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} 
                                 shape="rounded" />
-                        </Stack>
+                        </Stack> */}
+                        <Pagination count={8} sx={{color:'#A03037'}} onChange={(e,value)=>setCurrentPage(value)}/>
                     </Box>
             }
             <Box className={classes.footerDB}>

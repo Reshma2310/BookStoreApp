@@ -406,7 +406,7 @@ function MyCart(props) {
       console.log('cart list books')
 
       getCartItems().then((response) => {
-         console.log(response)
+         console.log(response, "from mycart page")
          setCartList(response.data.result)
          setQuantity(response.data.result)
          setOrderList(response.data.result)
